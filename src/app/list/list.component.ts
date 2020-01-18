@@ -17,7 +17,7 @@ export class ListUserComponent {
     XB: 'https://i.dlpng.com/static/png/1784426-xbox-icon-png-50-px-png-xbox-1600_1600_preview.webp'
   }
 
-  logos = {
+  logos = { 
     NS: 'https://www.myreviews.it/wp-content/uploads/2017/07/nintendo-switch-logo-2.jpg',
     PC: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-JQ2M5WdoxrvnKuIjbuOVZG_WphkVWn_ENKGTFWrU63BD3MIo&s'
   }
