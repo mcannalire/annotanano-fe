@@ -3,13 +3,21 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { OrderModule } from 'ngx-order-pipe';
+import { ListUserComponent } from './list/list.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
+import { AppRoutingModule } from "./app.module-routing";
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ListUserComponent,
+    UserEditComponent
   ],
   imports: [
-    BrowserModule, OrderModule
+    BrowserModule, OrderModule, AppRoutingModule, HttpClientModule, FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

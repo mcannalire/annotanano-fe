@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="row" class="gamer-box">
+        <div class="col-12">
+            <span>Nome: </span>
+            <input type="text" [(ngModel)]="person.name" placeholder="Inserisci Nome">
+        </div>
+        <div class="col-12">
+            <span>Url Immagine Avatar: </span>
+            <input type="text" [(ngModel)]="person.avatarUrl" placeholder="Inserisci URL dell'avatar">
+        </div>
+        <div class="col-12">
+            <button (click)="addGame()" *ngIf="!aggiungiGioco">Aggiungi Gioco</button>
+            <div class="row" *ngIf="aggiungiGioco">
+                <div class="col-6">
+                    <span>Inserisci Nome</span>
+                    <input type="text" [(ngModel)]="newGame.name" placeholder="Inserisci nome del gioco">
+                </div>
+                <div class="col-6">
+                    <span>Inserisci Piattaforma</span>
+                    <select [(ngModel)]="newGame.platform">
+                        <option *ngFor="let p of platforms" value="{{p.value}}">{{p.name}}</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <span>Completato</span>
+                    <input type="checkbox" [(ngModel)]="newGame.completato">
+                </div>
+                <div class="col-6">
+                    <span>Percentuale di completamento</span>
+                    <input type="range" min="1" max="100" [(ngModel)]="newGame.percentComp" [disabled]="newGame.completato">
+                    <span>{{newGame.percentComp}}%</span>
+                </div>
+                <div class="col-12">
+                    <button (click)="saveGame()" *ngIf="aggiungiGioco">Ok</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-12" *ngIf="!person.gamesThisYear">
+            <span>Non hai ancora inserito nessun gioco, clicca sul pulsante Aggiungi gioco</span>
+        </div>
+        <div class="col-12" *ngIf="person.gamesThisYear">
+            <div class="row" *ngFor="let game of person.gamesThisYear">
+                <div class="games-box col-12 row">
+                    <div class="col-2" *ngIf="game.modifica">
+                      <img class="platform-img" src="{{logos[game.platform]}}">
+                    </div>
+                    <div class="col-2" *ngIf="!game.modifica">
+                        <select [(ngModel)]="game.platform">
+                            <option *ngFor="let p of platforms" value="{{p.value}}">{{p.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-7 grid-cell" *ngIf="game.modifica">{{game.name}}</div>
+                    <div class="col-7" *ngIf="!game.modifica">
+                        <input type="text" [(ngModel)]="newGame.name" placeholder="Modifica nome del gioco">
+                    </div>
+                    <!--<div class="col-2 grid-cell-status">{{game.status === 0 ? 'In corso' : 'Completato'}}</div>-->
+                    <div class="col-2" *ngIf="game.modifica">
+                      <div class="progress-bar-full">
+                        <div class="progress-bar" [ngStyle]="{'width': game.percentComp}">{{game.percentComp}}</div>
+                      </div>
+                    </div>
+                    <div class="col-2" *ngIf="!game.modifica">
+                        <input type="range" min="1" max="100" [(ngModel)]="game.percentComp">
+                        <span>{{game.percentComp}}%</span>
+                    </div>
+                    <div class="col-1" *ngIf="game.modifica">
+                        <button (click)="modificaGioco(game)" *ngIf="game.modifica">Modifica</button>
+                    </div>
+                    <div class="col-1" *ngIf="!game.modifica">
+                        <button (click)="annullaModificaGioco(game)" *ngIf="!game.modifica">Conferma</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
