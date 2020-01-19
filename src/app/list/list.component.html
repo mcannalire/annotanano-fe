@@ -15,7 +15,8 @@
             <div class="avatar-box col-12 row">
               <div class="col-2">
                 <img class="crown-img" src="https://clipartart.com/images/crown-clipart.png" *ngIf="i === 0"> 
-                <img class="avatar-img" src="{{person.avatarUrl}}">
+                <img class="avatar-img" *ngIf="person.avatarUrl"  src="{{person.avatarUrl}}">
+                <img class="avatar-img" *ngIf="!person.avatarUrl"  src="https://i.imgflip.com/2nom88.jpg?a438168">
               </div>
               <div class="col-8">
                 <span class="person-name">{{person.name}}</span>
