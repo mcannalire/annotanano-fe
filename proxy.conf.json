@@ -1,6 +1,12 @@
-{
-    "/api": {
-      "target": "https://annotanano-spring.herokuapp.com",
-      "secure": false
-    }
+{    
+  "/api/getAll": {
+    "target": "https://annotanano-spring.herokuapp.com",
+    "secure": false
+  },
+
+  "/api*": {
+    "target": "https://annotanano-spring.herokuapp.com",
+    "secure": false
+  }
+    
   }

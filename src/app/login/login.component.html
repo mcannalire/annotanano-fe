@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <span>Inserisci Username</span>
+            <input type="text" [(ngModel)]="username">
+        </div>
+        <div class="col-12">
+            <span>Inserisci Password</span>
+            <input type="password" [(ngModel)]="pwd">
+        </div>
+        <div class="col-12">
+            <button (click)="login()" [disabled]="verifyInput()">LOGIN</button>
+        </div>
+       <div class="col-12" *ngIf="loginFallito">
+            <span>Username o password errati</span>
+       </div>
+    </div>
+</div>

@@ -1,2 +1,25 @@
-<button (click)="login()">LOGIN</button>
+<div class="container header-class" *ngIf="notLogin()">
+    <div class="row" style="height: inherit;">
+        <div (click)="edit()" class="col-6 voice-class">
+            <div>Modifica Utente</div>
+        </div>
+        <div (click)="list()" class="col-6 voice-class">
+            <div>Lista Giocatori</div>
+        </div>
+    </div>
+</div> 
+
 <router-outlet></router-outlet>
+
+<div class="container footer-class" *ngIf="notLogin()">
+    <div class="row" style="height: inherit;">
+        <div class="col-3">
+            <img class="img-footer" src="http://alessandriaricicla.it/wp-content/uploads/2015/12/block-notes-01.png">
+        </div>
+       <div class="col-9 annotanano-logo">
+            <div>
+                <span>ANNOTANANO 2020</span>
+            </div>
+       </div>
+    </div>
+</div> 

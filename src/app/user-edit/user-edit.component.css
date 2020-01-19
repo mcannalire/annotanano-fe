@@ -3,6 +3,22 @@
     padding-bottom: 10px;
     text-align: right;
   }
+
+  .button-edit {
+    background-color: dimgray;
+    color: white;
+    border: 1px solid goldenrod;
+  }
+
+  .button-edit :hover{
+    color: goldenrod;
+    background-color: honeydew;
+  }
+
+  .grid-edit {
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
   
   .gamer-box {
     background-color: beige;
@@ -55,6 +71,8 @@
   
   .grid-cell {
     padding-top: 20px;
+    font-style: italic;
+    font-weight: 600;
   }
   
   .grid-cell-status {

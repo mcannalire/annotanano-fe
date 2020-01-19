@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GamesService } from '../services/games.service';
 
 @Component({
   selector: 'annotanano-list',
@@ -9,6 +10,9 @@ export class ListUserComponent {
   ordering = '';
 
   title = 'Annotanano 2020';
+
+  giochiCompleti = false;
+  reverse = false;
 
   stereotype = {
     PC: 'http://simpleicon.com/wp-content/uploads/mouse.png',
@@ -21,62 +25,102 @@ export class ListUserComponent {
     NS: 'https://www.myreviews.it/wp-content/uploads/2017/07/nintendo-switch-logo-2.jpg',
     PC: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-JQ2M5WdoxrvnKuIjbuOVZG_WphkVWn_ENKGTFWrU63BD3MIo&s'
   }
-  listPerson = [{
-    name: 'Marco',
-    avatarUrl: 'https://sm.ign.com/ign_it/feature/c/conker-why/conker-why-nintendos-most-controversial-game-is-still-one-of_9m9w.jpg',
-    gamesThisYear: [{
-      name: 'Luigi\'s Mansion 3',
-      platform: 'NS',
-      completato: false,
-      percentComp: '25%'
-    },
-    {
-      name: 'The Witcher 3: Wild Hunt',
-      platform: 'PC',
-      completato: false,
-      percentComp: '5%'
-    },
-    {
-      name: 'Resident Evil 2',
-      platform: 'PC',
-      completato: false,
-      percentComp: '10%'
-    }
-    ]
-  },
-  { 
-    name: 'Domenico'
-  }, 
-  {
-    name: 'Salvatore'
-  }, 
-  {
-    name: 'Jury'
-  }, 
-  {
-    name: 'Piero'
-  }, 
-  {
-    name:'Luigi'
-  }, 
-  {
-    name:'Davide'
-  },
-  { 
-    name: 'Lorenzo'
-  }]
+  listPerson = [];
 
-  constructor(){
-    this.listPerson.forEach((person: any) => {
-      if(person.gamesThisYear){
-        person.badge = this.getBadge(person);
+  constructor(private gamesService: GamesService){
+    this.gamesService.getAll().subscribe((data : any) => {
+      this.listPerson = data;
+
+      if(this.listPerson){
+        this.listPerson.forEach((person: any) => {
+          if(person.gamesThisYear){
+            person.badge = this.getBadge(person);
+          }
+        })
       }
+      
     })
+
+    
   }
 
-  orderBy(orderField){
-    this.ordering = orderField;
+  customComparator(person1, person2) {
+    if(person1.gamesThisYear && !person2.gamesThisYear)
+      return -1;
+    
+    if(!person1.gamesThisYear && person2.gamesThisYear)
+      return 1;
+
+    if(person1.gamesThisYear.length !== 0 && person2.gamesThisYear.length === 0)
+      return -1;
+
+    if(person1.gamesThisYear.length === 0 && person2.gamesThisYear.length !== 0)
+      return 1;
+    
+    if(person1.gamesThisYear.length !== 0 && person2.gamesThisYear.length !== 0){
+      let p1Count = 0;
+      let p2Count = 0;
+      if(person1.gamesThisYear.length > person2.gamesThisYear.length){
+        
+        person1.gamesThisYear.forEach(element => {
+          if(element.percentComp === 100)
+            p1Count++
+        });
+
+        person2.gamesThisYear.forEach(element => {
+          if(element.percentComp === 100)
+            p2Count++
+        });
+
+        if(p1Count > p2Count)
+          return -1;
+        else if(p1Count < p2Count)
+          return 1;
+        else {
+          return -1;
+        }
+    } else if(person1.gamesThisYear.length < person2.gamesThisYear.length){
+        person1.gamesThisYear.forEach(element => {
+          if(element.percentComp === 100)
+            p1Count++
+        });
+
+        person2.gamesThisYear.forEach(element => {
+          if(element.percentComp === 100)
+            p2Count++
+        });
+
+        if(p1Count > p2Count)
+          return -1;
+        else if(p1Count < p2Count)
+          return 1;
+        else {
+          return 1;
+        }
+    } else {
+      person1.gamesThisYear.forEach(element => {
+        if(element.percentComp === 100)
+          p1Count++
+      });
+
+      person2.gamesThisYear.forEach(element => {
+        if(element.percentComp === 100)
+          p2Count++
+      });
+
+      if(p1Count > p2Count)
+        return -1;
+      else if(p1Count < p2Count)
+        return 1;
+      else {
+        return 1;
+      }
+    }
+
+    
   }
+
+}
 
   private getBadge(person):string{
     const games = person.gamesThisYear;

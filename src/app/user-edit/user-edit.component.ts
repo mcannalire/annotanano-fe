@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GamesService } from '../services/games.service';
 
 @Component({
   selector: 'annotanano-edit',
@@ -32,18 +33,25 @@ export class UserEditComponent {
     aggiungiGioco: boolean = false;
     newGame: any = {}
 
-    person: any = {
-      name: '',
-      avatarUrl: ''
-    }
+    person: any = {}
 
-    constructor(){
-      
+    constructor(private gameService: GamesService){
+      this.gameService.getUserGames().subscribe((data) => {
+        if(data){
+          this.person = data;
+          if(this.person.gamesThisYear){
+            this.person.gamesThisYear.forEach(element => {
+              element.modifica = true;
+            });
+          }
+        }
+      });
     }
 
     addGame(){
       this.aggiungiGioco = true;
       this.newGame = {};
+      this.newGame.percentComp = 1;
       //this.newGame.platform = this.platforms[0];
     }
 
@@ -55,12 +63,17 @@ export class UserEditComponent {
       game.modifica = true;
     }
 
+    eliminaGioco(index){
+      this.person.gamesThisYear.splice(index, 1);
+    }
+
     saveGame(){
       this.aggiungiGioco = false;
       
       if(!this.newGame.platform){
         this.newGame.platform = 'PC';
       }
+      
       this.newGame.modifica = true;
       if(this.person.gamesThisYear){
         this.person.gamesThisYear.push(this.newGame);
@@ -68,5 +81,13 @@ export class UserEditComponent {
         this.person.gamesThisYear = [];
         this.person.gamesThisYear.push(this.newGame);
       }
+    }
+
+    saveProfile(){
+      this.gameService.update(this.person).subscribe((data)=>{
+        if(data){
+          this.person = data;
+        }
+      })
     }
 }

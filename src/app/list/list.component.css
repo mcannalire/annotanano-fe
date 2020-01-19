@@ -53,6 +53,8 @@
 
 .grid-cell {
   padding-top: 20px;
+  font-style: italic;
+  font-weight: 600;
 }
 
 .grid-cell-status {
