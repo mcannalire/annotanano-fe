@@ -86,9 +86,15 @@ export class UserEditComponent {
     }
 
     saveProfile(){
+      if(!this.person.userId){
+        this.person.userId = sessionStorage.getItem('userId');
+      }
       this.gameService.update(this.person).subscribe((data)=>{
         if(data){
           this.person = data;
+          this.person.gamesThisYear.forEach(element => {
+            element.modifica = true;
+          });
         }
       })
     }
