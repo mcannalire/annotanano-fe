@@ -7,17 +7,15 @@
           <span style="padding-right: 10px;">Mostra solo giochi completati</span>
           <input type="checkbox" [(ngModel)]="giochiCompleti">
         </div>
-        
-
-        
       </div>
     </div>
     <div class="row">
-      <div class="col-12" *ngFor="let person of listPerson | orderBy:ordering:false:false:customComparator">
+      <div class="col-12" *ngFor="let i = index;let person of listPerson | orderBy:ordering:false:false:customComparator">
         <div class="gamer-box">
             <div class="avatar-box col-12 row">
               <div class="col-2">
-                  <img class="avatar-img" src="{{person.avatarUrl}}">
+                <img class="crown-img" src="https://clipartart.com/images/crown-clipart.png" *ngIf="i === 0"> 
+                <img class="avatar-img" src="{{person.avatarUrl}}">
               </div>
               <div class="col-8">
                 <span class="person-name">{{person.name}}</span>
