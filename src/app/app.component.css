@@ -4,6 +4,7 @@
     transform: translateX(-50%);
     text-align: center;
     height: 50px;
+    z-index: 20
 }
 
 .footer-class {
