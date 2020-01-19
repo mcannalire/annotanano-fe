@@ -23,7 +23,9 @@ export class ListUserComponent {
 
   logos = { 
     NS: 'https://www.myreviews.it/wp-content/uploads/2017/07/nintendo-switch-logo-2.jpg',
-    PC: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-JQ2M5WdoxrvnKuIjbuOVZG_WphkVWn_ENKGTFWrU63BD3MIo&s'
+    PC: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-JQ2M5WdoxrvnKuIjbuOVZG_WphkVWn_ENKGTFWrU63BD3MIo&s',
+    XB: 'https://www.gamelegends.it/wp-content/uploads/2014/05/XBox-One-Logo.gif',
+    PS: 'https://twinfinite.net/wp-content/uploads/2019/02/ps4-logo.jpg'
   }
   listPerson = [];
 
