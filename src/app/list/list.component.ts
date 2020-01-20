@@ -15,17 +15,17 @@ export class ListUserComponent {
   reverse = false;
 
   stereotype = {
-    PC: 'http://simpleicon.com/wp-content/uploads/mouse.png',
-    NS: 'https://image.flaticon.com/icons/png/512/2217/2217193.png',
-    PS: 'https://banner2.cleanpng.com/20180525/xxt/kisspng-playstation-2-computer-icons-5b08a3188b4563.4843535815272926965705.jpg',
-    XB: 'https://i.dlpng.com/static/png/1784426-xbox-icon-png-50-px-png-xbox-1600_1600_preview.webp'
+    PC: 'assets/img/mouse.png',
+    NS: 'assets/img/switch.png',
+    PS: 'assets/img/pslogo.jpg',
+    XB: 'assets/img/xbox.webp'
   }
 
   logos = { 
-    NS: 'https://www.myreviews.it/wp-content/uploads/2017/07/nintendo-switch-logo-2.jpg',
-    PC: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-JQ2M5WdoxrvnKuIjbuOVZG_WphkVWn_ENKGTFWrU63BD3MIo&s',
-    XB: 'https://www.gamelegends.it/wp-content/uploads/2014/05/XBox-One-Logo.gif',
-    PS: 'https://twinfinite.net/wp-content/uploads/2019/02/ps4-logo.jpg'
+    NS: 'assets/img/ns.jpg',
+    PC: 'assets/img/pc.jpg',
+    XB: 'assets/img/xb.gif',
+    PS: 'assets/img/ps.jpg'
   }
   listPerson = [];
 

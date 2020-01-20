@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: malifissent;
+    src: url(assets/font/malifissent.ttf) format("opentype");
+
+    font-family: mephisto;
+    src: url(assets/font/MEPHISTO.TTF) format("opentype");
+  }
