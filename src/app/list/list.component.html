@@ -14,9 +14,9 @@
         <div class="gamer-box">
             <div class="avatar-box col-12 row">
               <div class="col-2">
-                <img class="crown-img" src="https://clipartart.com/images/crown-clipart.png" *ngIf="i === 0"> 
+                <img class="crown-img" src="assets/img/crown.png" *ngIf="i === 0"> 
                 <img class="avatar-img" *ngIf="person.avatarUrl"  src="{{person.avatarUrl}}">
-                <img class="avatar-img" *ngIf="!person.avatarUrl"  src="https://i.imgflip.com/2nom88.jpg?a438168">
+                <img class="avatar-img" *ngIf="!person.avatarUrl"  src="assets/img/derp.jpg">
               </div>
               <div class="col-8">
                 <span class="person-name">{{person.name}}</span>
@@ -31,7 +31,7 @@
                   <div class="col-2">
                     <img class="platform-img" src="{{logos[game.platform]}}">
                   </div>
-                  <div class="col-8 grid-cell">{{game.name}}</div>
+                  <div class="col-8 grid-cell" [ngStyle]="{'font-family': fonts[game.platform]}">{{game.name}}</div>
                   <!--<div class="col-2 grid-cell-status">{{game.status === 0 ? 'In corso' : 'Completato'}}</div>-->
                   <div class="col-2">
                     <div class="progress-bar-full">

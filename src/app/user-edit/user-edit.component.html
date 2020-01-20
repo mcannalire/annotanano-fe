@@ -52,7 +52,7 @@
                             <option *ngFor="let p of platforms" value="{{p.value}}">{{p.name}}</option>
                         </select>
                     </div>
-                    <div class="col-6 grid-cell" *ngIf="game.modifica">{{game.name}}</div>
+                    <div class="col-6 grid-cell" *ngIf="game.modifica" [ngStyle]="{'font-family': fonts[game.platform]}">{{game.name}}</div>
                     <div class="col-6" *ngIf="!game.modifica">
                         <input type="text" [(ngModel)]="game.name" placeholder="Modifica nome del gioco">
                     </div>

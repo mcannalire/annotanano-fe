@@ -8,6 +8,13 @@ import { GamesService } from '../services/games.service';
 })
 export class UserEditComponent {
 
+  fonts = {
+    PC: 'windows',
+    NS: 'nintendo',
+    PS: 'playstation',
+    XB: 'xbox'
+  }
+
   logos = { 
     NS: 'assets/img/ns.jpg',
     PC: 'assets/img/pc.jpg',

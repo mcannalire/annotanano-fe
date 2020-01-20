@@ -14,6 +14,13 @@ export class ListUserComponent {
   giochiCompleti = false;
   reverse = false;
 
+  fonts = {
+    PC: 'windows',
+    NS: 'nintendo',
+    PS: 'playstation',
+    XB: 'xbox'
+  }
+
   stereotype = {
     PC: 'assets/img/mouse.png',
     NS: 'assets/img/switch.png',
