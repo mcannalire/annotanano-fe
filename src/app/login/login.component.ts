@@ -33,6 +33,9 @@ export class LoginComponent {
     }
 
     verifyInput() : boolean {
-        return this.username.length < 3 && this.pwd.length < 3
+        if(this.username && this.pwd)
+          return this.username.length < 3 && this.pwd.length < 3
+        else
+          return false;
     }
 }
