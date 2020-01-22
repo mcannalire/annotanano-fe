@@ -29,5 +29,9 @@ export class AppComponent {
   list(){
     this.router.navigateByUrl('/list');
   }
+
+  compare(){
+    this.router.navigateByUrl('/compare');
+  }
   
 }

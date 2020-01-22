@@ -5,6 +5,7 @@ import { ListUserComponent } from './list/list.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './services/auth.guard';
+import { CompareComponent } from './compare/compare.component';
 
 const appRoutes: Routes = [
   {
@@ -23,6 +24,11 @@ const appRoutes: Routes = [
     path: 'login',
     component: LoginComponent,
     data: { title: 'Annotanano Login Utente' }
+  },
+  {
+    path: 'compare',
+    component: CompareComponent,
+    data: { title: 'Annotanano Compare Utente' }
   }
 ];
 

@@ -1,0 +1,44 @@
+.avatar-box {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    max-height: 150px;
+    text-align: center;
+  }
+  
+  .avatar-img {
+    max-width: 150px;
+    max-height: 150px;
+    border: 2px solid darkgoldenrod;
+    box-shadow: 2px 2px;
+  }
+
+  .avatar-img-opponent {
+    max-width: 150px;
+    max-height: 150px;
+    border: 2px solid darkgoldenrod;
+    box-shadow: 2px 2px;
+    transform: scaleX(-1);
+  }
+
+  .vs-img {
+    height: 100px;
+    padding-top: 25px;
+  }
+
+  .grid-compare {
+    padding-bottom: 20px;
+  }
+
+  .grid-compare-score {
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: x-large;
+    font-weight: bolder;
+  }
+
+  .blood-img {
+    position: absolute;
+    height: 100px;
+    z-index: 10;
+  }

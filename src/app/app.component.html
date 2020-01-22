@@ -1,10 +1,13 @@
 <div class="container header-class" *ngIf="notLogin()">
     <div class="row" style="height: inherit;">
-        <div (click)="edit()" class="col-6 voice-class">
+        <div (click)="edit()" class="col-4 voice-class">
             <div>Modifica Utente</div>
         </div>
-        <div (click)="list()" class="col-6 voice-class">
+        <div (click)="list()" class="col-4 voice-class">
             <div>Lista Giocatori</div>
+        </div>
+        <div (click)="compare()" class="col-4 voice-class">
+            <div>Compara Giocatori</div>
         </div>
     </div>
 </div> 

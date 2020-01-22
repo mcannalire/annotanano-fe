@@ -1,0 +1,93 @@
+<div class="container" style="padding-top:70px">
+
+    <div class="row" style="padding-bottom: 20px; padding-top:20px;">
+        <div class="col-5">
+            <span>Scegli con chi vuoi confrontarti: </span>
+        </div>
+        <div class="col-4">
+            <p-dropdown [options]="listPerson" optionLabel="name" placeholder="Seleziona giocatore" [(ngModel)]="selectedItem"></p-dropdown>
+        </div>
+        <div class="col-3">
+            <p-button label="Confronta" (click)="confronta()" [disabled]="!selectedItem"></p-button>
+        </div>
+    </div>
+
+    <div *ngIf="personaSelezionata">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-4 avatar-box">
+                <img class="blood-img" *ngIf="youBlood" src="assets/img/blood.gif">
+                <img class="avatar-img" *ngIf="you.avatarUrl" [ngStyle]="{'filter': youBlood ? 'grayscale(100%)' : ''}"  src="{{you.avatarUrl}}">
+                <img class="avatar-img" *ngIf="!you.avatarUrl" [ngStyle]="{'filter': youBlood ? 'grayscale(100%)' : ''}"  src="assets/img/derp.jpg">
+            </div>
+            <div class="col-1">
+                <img class="vs-img" src="assets/img/vs.gif">
+            </div>
+            <div class="col-4 avatar-box">
+                <img class="blood-img" *ngIf="opponentBlood" src="assets/img/blood.gif">
+                <img class="avatar-img-opponent" *ngIf="selectedPerson.avatarUrl" [ngStyle]="{'filter': opponentBlood ? 'grayscale(100%)' : ''}"  src="{{selectedPerson.avatarUrl}}">
+                <img class="avatar-img-opponent" *ngIf="!selectedPerson.avatarUrl" [ngStyle]="{'filter': opponentBlood ? 'grayscale(100%)' : ''}"  src="assets/img/derp.jpg">
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2  grid-compare">
+                <span>Ratio Completi/Numero Giochi</span>
+            </div>
+            <div class="col-4  grid-compare-score" [ngStyle]="{'color': statsColor(you.stats.completedRatio, selectedPerson.stats.completedRatio, false)}">
+                <span>{{you.stats.completedRatio}}</span>
+            </div>
+            <div class="col-1  grid-compare">
+            </div>
+            <div class="col-4 grid-compare-score" [ngStyle]="{'color': statsColor(selectedPerson.stats.completedRatio, you.stats.completedRatio, false)}">
+                <span>{{selectedPerson.stats.completedRatio}}</span>
+            </div>
+            <div class="col-1  grid-compare">
+            </div>
+
+            <div class="col-2  grid-compare">
+                <span>Giochi completati</span>
+            </div>
+            <div class="col-4 grid-compare-score" [ngStyle]="{'color': statsColor(you.stats.completedGames, selectedPerson.stats.completedGames, false)}">
+                <span>{{you.stats.completedGames}}</span>
+            </div>
+            <div class="col-1  grid-compare">
+            </div>
+            <div class="col-4  grid-compare-score" [ngStyle]="{'color': statsColor(selectedPerson.stats.completedGames, you.stats.completedGames, false)}">
+                <span>{{selectedPerson.stats.completedGames}}</span>
+            </div>
+            <div class="col-1  grid-compare">
+            </div>
+
+            <div class="col-2  grid-compare">
+                <span>Numero giochi</span>
+            </div>
+            <div class="col-4 grid-compare-score" [ngStyle]="{'color': statsColor(you.stats.numGames, selectedPerson.stats.numGames, false)}">
+                <span>{{you.stats.numGames}}</span>
+            </div>
+            <div class="col-1  grid-compare">
+            </div>
+            <div class="col-4  grid-compare-score" [ngStyle]="{'color': statsColor(selectedPerson.stats.numGames, you.stats.numGames, false)}">
+                <span>{{selectedPerson.stats.numGames}}</span>
+            </div>
+            <div class="col-1  grid-compare">
+            </div>
+
+            <div class="col-2  grid-compare">
+                <span>Giochi non completati</span>
+            </div>
+            <div class="col-4  grid-compare-score" [ngStyle]="{'color': statsColor(you.stats.notFinished, selectedPerson.stats.notFinished, true)}">
+                <span>{{you.stats.notFinished}}</span>
+            </div>
+            <div class="col-1  grid-compare">
+            </div>
+            <div class="col-4 grid-compare-score" [ngStyle]="{'color': statsColor(selectedPerson.stats.notFinished, you.stats.notFinished, true)}">
+                <span>{{selectedPerson.stats.notFinished}}</span>
+            </div>
+            <div class="col-1  grid-compare">
+            </div>
+        </div>
+    </div>
+
+</div>

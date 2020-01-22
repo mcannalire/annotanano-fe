@@ -28,6 +28,13 @@ export class GamesService {
         });
     }
 
+    getAllByUserId() : Observable<any>{
+        const userId = sessionStorage.getItem('userId');
+        return this.http.post('https://annotanano-spring.herokuapp.com/api/getAllByUserId', userId, {
+            headers: {'accept': 'application/json'}
+        });
+    }
+
     gameList(searchText) : Observable<any>{
         const encodedSearchText = encodeURIComponent(searchText);
         return this.http.get('https://chicken-coop.fr/rest/games?title=' + encodedSearchText, {

@@ -24,6 +24,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { TooltipModule } from 'primeng/tooltip';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { PasswordModule } from 'primeng/password';
+import { CompareComponent } from './compare/compare.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PasswordModule } from 'primeng/password';
     ListUserComponent,
     UserEditComponent,
     LoginComponent,
-    LoaderComponent
+    LoaderComponent,
+    CompareComponent
   ],
   imports: [
     BrowserModule, 
