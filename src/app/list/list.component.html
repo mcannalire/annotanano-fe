@@ -3,14 +3,31 @@
     <div class="order-combo-box">
       <div class="row">
         <div class="col-3"></div>
-        <div class="col-12">
-          <span style="padding-right: 10px;">Mostra solo giochi completati</span>
-          <input type="checkbox" [(ngModel)]="giochiCompleti">
+        <div class="col-12 row">
+          <div class="col-6"></div>
+          <div class="col-3" *ngIf="mostraGrafico"></div>
+          <div class="col-3">
+            <p-checkbox binary="true" [(ngModel)]="mostraGrafico" (onChange)="getContainerWidth()" label="Mostra grafico punteggi" ></p-checkbox>
+          </div>
+          <div class="col-3">
+            <p-checkbox binary="true" [(ngModel)]="giochiCompleti" label="Mostra solo giochi completati" *ngIf="!mostraGrafico"></p-checkbox>
+          </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12" *ngFor="let i = index;let person of listPerson | orderBy:ordering:false:false:customComparator">
+    <div class="row" *ngIf="mostraGrafico">
+      <div class="col-12">
+        <google-chart
+          [title]="'Punteggio'"
+          [type]="'BarChart'"
+          [data]="scoreDatas"
+          [options]="options"
+          [columnNames]="columns">
+        </google-chart>
+      </div>
+    </div>
+    <div class="row" *ngIf="!mostraGrafico">
+      <div #googleChartId class="col-12" *ngFor="let i = index;let person of listPerson | orderBy:ordering:false:false:customComparator">
         <div class="gamer-box">
             <div class="avatar-box col-12 row">
               <div class="col-2">
@@ -34,8 +51,9 @@
                   <div class="col-8 grid-cell" [ngStyle]="{'font-family': fonts[game.platform]}">{{game.name}}</div>
                   <!--<div class="col-2 grid-cell-status">{{game.status === 0 ? 'In corso' : 'Completato'}}</div>-->
                   <div class="col-2">
-                    <div class="progress-bar-full">
-                      <div class="progress-bar" [ngStyle]="{'width': game.percentComp + '%'}">{{game.percentComp}}%</div>
+                    <div>
+                      <!--<div class="progress-bar" [ngStyle]="{'width': game.percentComp + '%'}">{{game.percentComp}}%</div>-->
+                      <p-progressBar [value]="game.percentComp"></p-progressBar>
                     </div>
                   </div>
                 </div>

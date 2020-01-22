@@ -1,18 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { GamesService } from '../services/games.service';
+import { element } from 'protractor';
 
 @Component({
   selector: 'annotanano-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListUserComponent {
+export class ListUserComponent{
   ordering = '';
+
+  @ViewChild("googleChartId", {})
+  container : ElementRef;
 
   title = 'Annotanano 2020';
 
   giochiCompleti = false;
   reverse = false;
+  mostraGrafico = false;
 
   fonts = {
     PC: 'windows',
@@ -35,22 +40,83 @@ export class ListUserComponent {
     PS: 'assets/img/ps.jpg'
   }
   listPerson = [];
+  columns = ['Nome', 'Punteggio', { role: 'style' }];
+  scoreDatas = [];
+
+  options = {
+    title: 'Punteggio',
+    chartArea: {width: '50%'},
+    annotations: {
+    },
+    legend: {position: 'none'},
+    hAxis: {
+      title: '',
+      minValue: 0,
+    },
+    vAxis: {
+      title: ''
+    },
+    width: 600,
+    height: 500
+  };
 
   constructor(private gamesService: GamesService){
     this.gamesService.getAll().subscribe((data : any) => {
       this.listPerson = data;
 
+      let maxScore = 0;
       if(this.listPerson){
+        
         this.listPerson.forEach((person: any) => {
           if(person.gamesThisYear){
             person.badge = this.getBadge(person);
+            if(person.name){
+              //this.columns.push(person.name);
+              let score = 0;
+              person.gamesThisYear.forEach((game: any) => {
+                score += game.percentComp === 100 ? 20 : 0;
+              })
+              
+              this.scoreDatas.push([person.name, score]);
+              if(score > maxScore){
+                maxScore = score;
+              }
+            }
           }
+          
         })
       }
+
+      if(this.scoreDatas && this.scoreDatas.length !== 0){
+        this.scoreDatas.sort(this.customComparatorScore);
+        this.scoreDatas.reverse();
+        this.scoreDatas.forEach(element => {
+          if(element[1] === maxScore){
+            element[2] = '#FFD700'; //gold
+          } else {
+            element[2] = '#ADD8E6';
+          }
+        });
+      }
+
+      
       
     })
+  }
 
+  getContainerWidth(){
+    if(this.container)
+      this.options.width = this.container.nativeElement.offsetWidth;
+  }
+
+  customComparatorScore(element1, element2){
+    if(element1.score > element2.score)
+      return 1;
     
+    if(element1.score < element2.score)
+      return -1
+
+    return 0;
   }
 
   customComparator(person1, person2) {

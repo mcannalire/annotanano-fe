@@ -12,7 +12,18 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthGuard } from './services/auth.guard';
 import { LoadingScreenInterceptor } from './interceptors/loading.interceptor';
-
+import { ProgressBarModule } from 'primeng/progressbar';
+import { ButtonModule } from 'primeng/button';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SliderModule } from 'primeng/slider';
+import { CheckboxModule } from 'primeng/checkbox';
+import { TooltipModule } from 'primeng/tooltip';
+import { GoogleChartsModule } from 'angular-google-charts';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   declarations: [
@@ -23,7 +34,23 @@ import { LoadingScreenInterceptor } from './interceptors/loading.interceptor';
     LoaderComponent
   ],
   imports: [
-    BrowserModule, OrderModule, AppRoutingModule, HttpClientModule, FormsModule
+    BrowserModule, 
+    OrderModule, 
+    AppRoutingModule, 
+    HttpClientModule, 
+    FormsModule, 
+    ProgressBarModule,
+    ButtonModule,
+    FontAwesomeModule,
+    InputTextModule,
+    DropdownModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule,
+    SliderModule,
+    CheckboxModule,
+    TooltipModule,
+    GoogleChartsModule,
+    PasswordModule
   ],
   providers: [AuthGuard,
     {

@@ -45,6 +45,10 @@
     color: white;
     text-shadow: 2px 2px 4px black;
   }
+
+  .ui-button-info {
+    height: 26px;
+  }
   
   .platform-img {
     max-width: 100px;

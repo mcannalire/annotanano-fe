@@ -28,4 +28,11 @@ export class GamesService {
         });
     }
 
+    gameList(searchText) : Observable<any>{
+        const encodedSearchText = encodeURIComponent(searchText);
+        return this.http.get('https://chicken-coop.fr/rest/games?title=' + encodedSearchText, {
+            headers: {'accept': 'application/json'}
+        });
+    }
+
 }

@@ -1,86 +1,96 @@
 <div class="container" style="padding-top: 70px;">
     <div class="row" class="gamer-box">
-        <div class="col-12 grid-edit">
-            <span>Nome: </span>
-            <input type="text" [(ngModel)]="person.name" placeholder="Inserisci Nome">
+        <div class="col-12 col-xs-12 grid-edit">
+            <span class="ui-float-label"> 
+                <input type="text" [(ngModel)]="person.name" pInputText>
+                <label for="float-input">Nome</label>
+            </span>
         </div>
-        <div class="col-12 row grid-edit">
-            <div class="col-3">
+        <div class="col-12 col-xs-12 row grid-edit">
+            <div class="col-3 col-xs-3">
                 <img class="avatar-img" src="{{person.avatarUrl}}">
             </div>
-            <div class="col-9">
-                <span>Url Immagine Avatar: </span>
-                <input type="text" [(ngModel)]="person.avatarUrl" placeholder="Inserisci URL dell'avatar">
+            <div class="col-9 col-xs-9">
+                <span class="ui-float-label"> 
+                    <input type="text" [(ngModel)]="person.avatarUrl" pInputText style="width: 55%;">
+                    <label for="float-input">Url Immagine Avatar</label>
+                </span>
             </div>
         </div>
-        <div class="col-12 grid-edit">
-            <button class="button-edit" (click)="addGame()" *ngIf="!aggiungiGioco">Aggiungi Gioco</button>
+        <div class="col-12 col-xs-12 grid-edit">
+            <p-button label="Aggiungi Gioco" (click)="addGame()" *ngIf="!aggiungiGioco"></p-button>
             <div class="row" *ngIf="aggiungiGioco">
-                <div class="col-6">
-                    <span>Inserisci Nome</span>
-                    <input type="text" [(ngModel)]="newGame.name" placeholder="Inserisci nome del gioco">
+                <div class="col-4 col-xs-4">
+                    <span class="ui-float-label">
+                        <input type="text" [(ngModel)]="newGame.name" pInputText>
+                        <label for="float-input">Inserisci Nome</label>
+                    </span>
                 </div>
-                <div class="col-6">
-                    <span>Inserisci Piattaforma</span>
-                    <select [(ngModel)]="newGame.platform">
-                        <option *ngFor="let p of platforms" value="{{p.value}}">{{p.name}}</option>
-                    </select>
+                <div class="col-4 col-xs-4">
+                    <p-dropdown [options]="platforms" (onChange)="newGame.platform = selectedItem.value" [(ngModel)]="selectedItem" optionLabel="name" placeholder="Seleziona piattaforma"></p-dropdown>
                 </div>
                 
-                <div class="col-12">
-                    <span>Percentuale di completamento</span>
-                    <input type="range" min="1" max="100" [(ngModel)]="newGame.percentComp" [disabled]="newGame.completato">
-                    <span>{{newGame.percentComp}}%</span>
+                <div class="col-4 col-xs-4">
+                    <span>Percentuale di completamento: {{newGame.percentComp}}%</span>
+                    <p-slider [(ngModel)]="newGame.percentComp" min="1" max="100" step="1"></p-slider>
                 </div>
-                <div class="col-12">
-                    <button class="button-edit" (click)="saveGame()" *ngIf="aggiungiGioco" [disabled]="!newGame.name || newGame.name.length === 0">Aggiungi</button>
+                <div class="col-12 col-xs-12">
+                    <p-button label="Aggiungi" (click)="saveGame()" *ngIf="aggiungiGioco" [disabled]="!newGame.name || newGame.name.length === 0"></p-button>
                 </div>
                 
             </div>
         </div>
-        <div class="col-12 grid-edit" *ngIf="!person.gamesThisYear">
+        <div class="col-12 col-xs-12 grid-edit" *ngIf="!person.gamesThisYear">
             <span>Non hai ancora inserito nessun gioco, clicca sul pulsante Aggiungi gioco</span>
         </div>
-        <div class="col-12 grid-edit" *ngIf="person.gamesThisYear">
+        <div class="col-12 col-xs-12 grid-edit" *ngIf="person.gamesThisYear">
             <div class="row" *ngFor="let game of person.gamesThisYear; index as i">
                 <div class="games-box col-12 row">
-                    <div class="col-2" *ngIf="game.modifica">
+                    <div class="col-2 col-xs-2" *ngIf="game.modifica">
                       <img class="platform-img" src="{{logos[game.platform]}}">
                     </div>
-                    <div class="col-2" *ngIf="!game.modifica">
-                        <select [(ngModel)]="game.platform">
-                            <option *ngFor="let p of platforms" value="{{p.value}}">{{p.name}}</option>
-                        </select>
+                    <div class="col-3 col-xs-2" *ngIf="!game.modifica">
+                        <p-dropdown [options]="platforms" optionLabel="name" placeholder="Seleziona piattaforma" (onChange)="game.platform = selectedItem.value" [(ngModel)]="selectedItem"></p-dropdown>
                     </div>
-                    <div class="col-6 grid-cell" *ngIf="game.modifica" [ngStyle]="{'font-family': fonts[game.platform]}">{{game.name}}</div>
-                    <div class="col-6" *ngIf="!game.modifica">
-                        <input type="text" [(ngModel)]="game.name" placeholder="Modifica nome del gioco">
+                    <div class="col-6 col-xs-6 grid-cell" *ngIf="game.modifica" [ngStyle]="{'font-family': fonts[game.platform]}">{{game.name}}</div>
+                    <div class="col-5 col-xs-6" *ngIf="!game.modifica">
+                        <span class="ui-float-label">
+                            <input type="text" [(ngModel)]="game.name" pInputText>
+                            <label for="float-input">Inserisci Nome</label>
+                        </span>
                     </div>
                     <!--<div class="col-2 grid-cell-status">{{game.status === 0 ? 'In corso' : 'Completato'}}</div>-->
-                    <div class="col-2" *ngIf="game.modifica">
-                      <div class="progress-bar-full">
-                        <div class="progress-bar" [ngStyle]="{'width': game.percentComp + '%'}">{{game.percentComp}}%</div>
+                    <div class="col-2 col-xs-2" *ngIf="game.modifica">
+                      <div>
+                        <!--<div class="progress-bar" [ngStyle]="{'width': game.percentComp + '%'}">{{game.percentComp}}%</div>-->
+                        <p-progressBar [value]="game.percentComp"></p-progressBar>
                       </div>
                     </div>
-                    <div class="col-2" *ngIf="!game.modifica">
-                        <input type="range" min="1" max="100" [(ngModel)]="game.percentComp">
+                    <div class="col-2 col-xs-2" *ngIf="!game.modifica" style="text-align:center">
                         <span>{{game.percentComp}}%</span>
+                        <p-slider [(ngModel)]="game.percentComp" min="1" max="100" step="1"></p-slider>
                     </div>
-                    <div class="col-1" *ngIf="game.modifica">
-                        <button class="button-edit" (click)="modificaGioco(game)" *ngIf="game.modifica">Modifica</button>
+                    <div class="col-1 col-xs-1" *ngIf="game.modifica">
+                        <p-button styleClass="ui-button-info" icon="fa fa-check" icon="faPencilAlt" (click)="modificaGioco(game)" *ngIf="game.modifica">
+                            <fa-icon [icon]="faPencilAlt"></fa-icon>
+                        </p-button>
                     </div>
-                    <div class="col-1" *ngIf="!game.modifica">
-                        <button class="button-edit" (click)="annullaModificaGioco(game)" *ngIf="!game.modifica">Conferma</button>
+                    <div class="col-1 col-xs-1" *ngIf="!game.modifica">
+                        <p-button styleClass="ui-button-info" icon="faPencilAlt" (click)="annullaModificaGioco(game)" *ngIf="!game.modifica">
+                            <fa-icon [icon]="faCheck"></fa-icon>
+                        </p-button>
                     </div>
-                    <div class="col-1">
-                        <button class="button-edit" (click)="eliminaGioco(i)">Elimina</button>
+                    <div class="col-1 col-xs-1">
+                        <p-button styleClass="ui-button-info" icon="faPencilAlt" (click)="eliminaGioco(i)">
+                            <fa-icon [icon]="faTrash"></fa-icon>
+                        </p-button>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-10"></div>
-                <div class="col-2">
-                    <button class="button-edit" (click)="saveProfile()">Salva</button>
+                <div class="col-11 col-xs-11"></div>
+                <div class="col-1 col-xs-1">
+                    <p-button label="Salva" (click)="saveProfile()"></p-button>
                 </div>
             </div>
         </div>

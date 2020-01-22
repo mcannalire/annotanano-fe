@@ -1,12 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { GamesService } from '../services/games.service';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'annotanano-edit',
   templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.css']
+  styleUrls: ['./user-edit.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class UserEditComponent {
+
+  faPencilAlt = faPencilAlt;
+  faTrash = faTrash;
+  faCheck = faCheck;
+
+  selectedItem;
+
+  gameResults = [];
 
   fonts = {
     PC: 'windows',
@@ -104,5 +117,26 @@ export class UserEditComponent {
           });
         }
       })
+    }
+
+    searchGame(event){
+      this.gameService.gameList(event.query).subscribe((data) => {
+        if(data && data.result){
+          const games = data.result;
+          games.forEach(element => {
+            if(element.platform === 'PS4' || element.platform === 'Switch' || element.platform === 'XONE' || element.platform === 'PC'){
+              this.gameResults.push(element);
+            }
+          });
+        }
+      });
+    }
+
+    selectionAutocompleteSingle(value){
+      if(value) {
+        this.newGame.name = value.title;
+        this.newGame.platform = value.platform;
+      }
+      
     }
 }

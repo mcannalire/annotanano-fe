@@ -1,15 +1,19 @@
 <div class="container">
     <div class="row">
-        <div class="col-12">
-            <span>Inserisci Username</span>
-            <input type="text" [(ngModel)]="username">
+        <div class="input-login col-12">
+            <span class="ui-float-label"> 
+                <input type="text" [(ngModel)]="username" pInputText>
+                <label for="float-input">Inserisci Username</label>
+            </span>
         </div>
-        <div class="col-12">
-            <span>Inserisci Password</span>
-            <input type="password" [(ngModel)]="pwd">
+        <div class="input-login col-12">
+            <span class="ui-float-label"> 
+                <input type="password" [(ngModel)]="pwd" pPassword>
+                <label for="float-input">Inserisci Password</label>
+            </span>
         </div>
-        <div class="col-12">
-            <button (click)="login()" [disabled]="verifyInput()">LOGIN</button>
+        <div class="button-login col-12">
+            <p-button label="LOGIN" (click)="login()" [disabled]="verifyInput()"></p-button>
         </div>
        <div class="col-12" *ngIf="loginFallito">
             <span>Username o password errati</span>
