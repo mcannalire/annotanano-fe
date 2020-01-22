@@ -74,7 +74,7 @@ export class ListUserComponent{
               //this.columns.push(person.name);
               let score = 0;
               person.gamesThisYear.forEach((game: any) => {
-                score += game.percentComp === 100 ? 20 : 0;
+                score += game.percentComp === 100 ? 750 : game.percentComp;
               })
               
               this.scoreDatas.push([person.name, score]);
@@ -110,10 +110,16 @@ export class ListUserComponent{
   }
 
   customComparatorScore(element1, element2){
-    if(element1.score > element2.score)
+    if(element1[1] && !element2[1])
+      return 1;
+
+    if(!element1[1] && element2[1])
+      return -1;
+
+    if(element1[1] > element2[1])
       return 1;
     
-    if(element1.score < element2.score)
+    if(element1[1] < element2[1])
       return -1
 
     return 0;
