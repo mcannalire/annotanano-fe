@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="col-12 col-xs-12 grid-edit">
-            <p-button label="Aggiungi Gioco" (click)="addGame()" *ngIf="!aggiungiGioco"></p-button>
+            <p-button label="Aggiungi Gioco" (onClick)="addGame()" *ngIf="!aggiungiGioco"></p-button>
             <div class="row" *ngIf="aggiungiGioco">
                 <div class="col-4 col-xs-4">
                     <span class="ui-float-label">
@@ -35,7 +35,7 @@
                     <p-slider [(ngModel)]="newGame.percentComp" min="1" max="100" step="1"></p-slider>
                 </div>
                 <div class="col-12 col-xs-12">
-                    <p-button label="Aggiungi" (click)="saveGame()" *ngIf="aggiungiGioco" [disabled]="!newGame.name || newGame.name.length === 0"></p-button>
+                    <p-button label="Aggiungi" (onClick)="saveGame()" *ngIf="aggiungiGioco" [disabled]="!newGame.name || newGame.name.length === 0"></p-button>
                 </div>
                 
             </div>
@@ -71,17 +71,17 @@
                         <p-slider [(ngModel)]="game.percentComp" min="1" max="100" step="1"></p-slider>
                     </div>
                     <div class="col-1 col-xs-1" *ngIf="game.modifica">
-                        <p-button styleClass="ui-button-info" icon="fa fa-check" icon="faPencilAlt" (click)="modificaGioco(game)" *ngIf="game.modifica">
+                        <p-button styleClass="ui-button-info" icon="fa fa-check" icon="faPencilAlt" (onClick)="modificaGioco(game)" *ngIf="game.modifica">
                             <fa-icon [icon]="faPencilAlt"></fa-icon>
                         </p-button>
                     </div>
                     <div class="col-1 col-xs-1" *ngIf="!game.modifica">
-                        <p-button styleClass="ui-button-info" icon="faPencilAlt" (click)="annullaModificaGioco(game)" *ngIf="!game.modifica">
+                        <p-button styleClass="ui-button-info" icon="faPencilAlt" (onClick)="annullaModificaGioco(game)" *ngIf="!game.modifica">
                             <fa-icon [icon]="faCheck"></fa-icon>
                         </p-button>
                     </div>
                     <div class="col-1 col-xs-1">
-                        <p-button styleClass="ui-button-info" icon="faPencilAlt" (click)="eliminaGioco(i)">
+                        <p-button styleClass="ui-button-info" icon="faPencilAlt" (onClick)="eliminaGioco(i)">
                             <fa-icon [icon]="faTrash"></fa-icon>
                         </p-button>
                     </div>
@@ -90,7 +90,7 @@
             <div class="row">
                 <div class="col-11 col-xs-11"></div>
                 <div class="col-1 col-xs-1">
-                    <p-button label="Salva" (click)="saveProfile()"></p-button>
+                    <p-button label="Salva" (onClick)="saveProfile()"></p-button>
                 </div>
             </div>
         </div>

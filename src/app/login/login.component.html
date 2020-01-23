@@ -8,13 +8,18 @@
         </div>
         <div class="input-login col-12">
             <span class="ui-float-label"> 
-                <input type="password" [(ngModel)]="pwd" pPassword>
+                <input type="password" [(ngModel)]="pwd" pPassword [promptLabel]="''" [weakLabel]="'Debole'" [mediumLabel]="'Medio'" strongLabel="'Difficile'">
                 <label for="float-input">Inserisci Password</label>
             </span>
         </div>
         <div class="button-login col-12">
-            <p-button label="LOGIN" (click)="login()" [disabled]="verifyInput()"></p-button>
+            <p-checkbox binary="true" [(ngModel)]="rememberMe" label="Ricordami"></p-checkbox>
         </div>
+        <div class="button-login col-12">
+            <p-button label="LOGIN" (onClick)="login()" [disabled]="verifyInput()"></p-button>
+        </div>
+        
+        
        <div class="col-12" *ngIf="loginFallito">
             <span>Username o password errati</span>
        </div>

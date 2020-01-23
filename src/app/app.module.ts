@@ -25,6 +25,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { PasswordModule } from 'primeng/password';
 import { CompareComponent } from './compare/compare.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { CompareComponent } from './compare/compare.component';
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingScreenInterceptor,
       multi: true
-    }
+    },
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
