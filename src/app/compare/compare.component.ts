@@ -145,7 +145,7 @@ export class CompareComponent {
                     this.selectedPerson.stats.notFinished++;
                 }
             });
-            this.selectedPerson.stats.completedRatio = Math.round((this.selectedPerson.stats.completedGames/this.you.stats.numGames) * 100) / 100
+            this.selectedPerson.stats.completedRatio = Math.round((this.selectedPerson.stats.completedGames/this.selectedPerson.stats.numGames) * 100) / 100
         } else {
             this.selectedPerson.stats = this.defaultStats();
         }
