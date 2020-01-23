@@ -19,6 +19,7 @@ export class CompareComponent {
     selectedItem;
     youBlood;
     opponentBlood;
+    noGames;
     
     constructor(private gamesService: GamesService) {
         this.gamesService.getAllByUserId().subscribe((data) => {
@@ -27,6 +28,9 @@ export class CompareComponent {
                 this.listPerson = data.filter((element) => {
                     if(element.userId === userId){
                         this.you = element;
+                        if(!this.you.gamesThisYear || this.you.gamesThisYear.length === 0){
+                            this.noGames = true;
+                        }
                         return false;
                     }
                     return true;

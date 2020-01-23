@@ -1,6 +1,12 @@
 <div class="container" style="padding-top:70px">
 
-    <div class="row" style="padding-bottom: 20px; padding-top:20px;">
+    <div *ngIf="!you" class="row" style="padding-bottom: 20px; padding-top:20px;">
+        <div class="col-12">
+            <span>Non hai salvato il profilo, non puoi confrontarti con altri giocatori</span>
+        </div>
+    </div>
+
+    <div *ngIf="you && !noGames" class="row" style="padding-bottom: 20px; padding-top:20px;">
         <div class="col-5">
             <span>Scegli con chi vuoi confrontarti: </span>
         </div>
@@ -9,6 +15,12 @@
         </div>
         <div class="col-3">
             <p-button label="Confronta" (onClick)="confronta()" [disabled]="!selectedItem"></p-button>
+        </div>
+    </div>
+
+    <div *ngIf="you && noGames" class="row" style="padding-bottom: 20px; padding-top:20px;">
+        <div class="col-12">
+            <span>Non hai ancora nessun gioco salvato, non puoi confrontarti con altri giocatori</span>
         </div>
     </div>
 
