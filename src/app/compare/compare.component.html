@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-2  grid-compare">
+            <div class="col-2  grid-compare" pTooltip="La vittoria su questo campo vale 3 punti" tooltipPosition="top">
                 <span>Ratio Completi/Numero Giochi</span>
             </div>
             <div class="col-4  grid-compare-score" [ngStyle]="{'color': statsColor(you.stats.completedRatio, selectedPerson.stats.completedRatio, false)}">
@@ -63,7 +63,7 @@
             <div class="col-1  grid-compare">
             </div>
 
-            <div class="col-2  grid-compare">
+            <div class="col-2  grid-compare" pTooltip="La vittoria su questo campo vale 5 punti" tooltipPosition="top">
                 <span>Giochi completati</span>
             </div>
             <div class="col-4 grid-compare-score" [ngStyle]="{'color': statsColor(you.stats.completedGames, selectedPerson.stats.completedGames, false)}">
@@ -77,7 +77,7 @@
             <div class="col-1  grid-compare">
             </div>
 
-            <div class="col-2  grid-compare">
+            <div class="col-2  grid-compare" pTooltip="La vittoria su questo campo vale 1 punto" tooltipPosition="top">
                 <span>Numero giochi</span>
             </div>
             <div class="col-4 grid-compare-score" [ngStyle]="{'color': statsColor(you.stats.numGames, selectedPerson.stats.numGames, false)}">
@@ -91,7 +91,7 @@
             <div class="col-1  grid-compare">
             </div>
 
-            <div class="col-2  grid-compare">
+            <div class="col-2  grid-compare" pTooltip="La vittoria su questo campo vale 1 punto (si vince totalizzando meno dell'avversario)" tooltipPosition="top">
                 <span>Giochi non completati</span>
             </div>
             <div class="col-4  grid-compare-score" [ngStyle]="{'color': statsColor(you.stats.notFinished, selectedPerson.stats.notFinished, true)}">
@@ -105,7 +105,7 @@
             <div class="col-1  grid-compare">
             </div>
 
-            <div class="col-2  grid-compare">
+            <div class="col-2  grid-compare" pTooltip="La vittoria su questo campo vale 2 punti" tooltipPosition="top">
                 <span>Ore di gioco</span>
             </div>
             <div class="col-4  grid-compare-score" [ngStyle]="{'color': statsColor(you.stats.totalHours, selectedPerson.stats.totalHours, false)}">
