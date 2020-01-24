@@ -10,6 +10,11 @@ import { element } from 'protractor';
 export class ListUserComponent{
   ordering = '';
 
+  createModal: boolean = false;
+  modalGame: any = {};
+  modalDisplay: boolean = false;
+  modalIndex: number;
+
   @ViewChild("googleChartId", {})
   container : ElementRef;
 
@@ -233,5 +238,17 @@ export class ListUserComponent{
       return this.stereotype.NS;
 
     
+  }
+
+  showCommentDialog(gameName, index){
+    this.modalIndex = index;
+    this.modalGame = gameName;
+    this.createModal = true;
+    setTimeout(() => this.modalDisplay = true, 760);
+  }
+
+  digestClose(){
+    this.modalDisplay = false;
+    setTimeout(() => this.createModal = false, 760);
   }
 }

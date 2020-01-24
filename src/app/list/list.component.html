@@ -48,10 +48,17 @@
                   <div class="col-2">
                     <img class="platform-img" src="{{logos[game.platform]}}">
                   </div>
-                  <div class="col-8 grid-cell" [ngStyle]="{'font-family': fonts[game.platform]}">{{game.name}}</div>
+                  <div class="col-7 grid-cell" [ngStyle]="{'font-family': fonts[game.platform]}">{{game.name}}</div>
                   <!--<div class="col-2 grid-cell-status">{{game.status === 0 ? 'In corso' : 'Completato'}}</div>-->
+                  <div class="col-1" style="cursor: pointer;" (click)="showCommentDialog(game, i)">
+                    <img class="comment-img" src="assets/img/comment.png" *ngIf="game.comment" pTooltip="{{person.name + ' ha inserito un commento per ' + game.name + '. Clicca per leggerlo'}}" tooltipPosition="top">
+                  </div>
                   <div class="col-2">
-                    <div>
+                    <div *ngIf="!game.comment">
+                      <!--<div class="progress-bar" [ngStyle]="{'width': game.percentComp + '%'}">{{game.percentComp}}%</div>-->
+                      <p-progressBar [value]="game.percentComp"></p-progressBar>
+                    </div>
+                    <div *ngIf="game.comment" pTooltip="{{'Ore giocate: ' + game.hours}}" tooltipPosition="top">
                       <!--<div class="progress-bar" [ngStyle]="{'width': game.percentComp + '%'}">{{game.percentComp}}%</div>-->
                       <p-progressBar [value]="game.percentComp"></p-progressBar>
                     </div>
@@ -63,4 +70,28 @@
       </div>
     </div>
   </div>
+
+  <p-dialog header="{{modalGame.name}}" [(visible)]="modalDisplay" [modal]="true" *ngIf="createModal" (onHide)="digestClose()">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 grid-modal" style="text-align: center;" *ngIf="modalGame.logo">
+                <img class="img-modal" src="{{modalGame.logo}}">
+            </div>
+            <div class="col-12 grid-modal" style="text-align: center;" *ngIf="!modalGame.logo">
+                <img class="img-modal" src="assets/img/no_game_img.png">
+            </div>
+            <div class="col-12 grid-modal ">
+                <!--<span class="comment-label">Commento:</span>-->
+                <span class="comment-desc">{{modalGame.comment}}</span>
+            </div>
+            <div class="col-6 grid-modal">
+                <span>Numero di ore giocate: {{modalGame.hours ? modalGame.hours : 0}}</span>
+            </div>
+            <div class="col-6 grid-modal rating" style="text-align: right;">
+                <span>Voto: {{modalGame.rating ? modalGame.rating : 0}}/5</span>
+                <p-rating [cancel]="false" [(ngModel)]="modalGame.rating" [readonly]="true"></p-rating>
+            </div>
+        </div>
+    </div>
+</p-dialog>
   

@@ -24,6 +24,21 @@
     src: url(assets/font/playstation.ttf) format("opentype");
 }
 
+@font-face {
+    font-family: bellerose;
+    src: url(assets/font/Bellerose.ttf) format("opentype");
+}
+
+@font-face {
+    font-family: freakshow;
+    src: url(assets/font/freakshow.ttf) format("opentype");
+}
+
+@font-face {
+    font-family: roadrage;
+    src: url(assets/font/roadrage.otf) format("opentype");
+}
+
 
 
 

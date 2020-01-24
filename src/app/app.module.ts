@@ -26,6 +26,9 @@ import { GoogleChartsModule } from 'angular-google-charts';
 import { PasswordModule } from 'primeng/password';
 import { CompareComponent } from './compare/compare.component';
 import { CookieService } from 'ngx-cookie-service';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RatingModule } from 'primeng/rating';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,10 @@ import { CookieService } from 'ngx-cookie-service';
     CheckboxModule,
     TooltipModule,
     GoogleChartsModule,
-    PasswordModule
+    PasswordModule,
+    DialogModule,
+    InputTextareaModule,
+    RatingModule
   ],
   providers: [AuthGuard,
     {

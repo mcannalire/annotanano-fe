@@ -1,8 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { GamesService } from '../services/games.service';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 
 @Component({
@@ -13,9 +15,15 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 })
 export class UserEditComponent {
 
+  modalGame: any = {};
+  modalDisplay: boolean = false;
+  modalIndex: number;
+
   faPencilAlt = faPencilAlt;
   faTrash = faTrash;
   faCheck = faCheck;
+
+  createModal: boolean = false;
 
   selectedItem;
 
@@ -57,7 +65,7 @@ export class UserEditComponent {
 
     person: any = {}
 
-    constructor(private gameService: GamesService){
+    constructor(private gameService: GamesService, private ref: ChangeDetectorRef){
       this.gameService.getUserGames().subscribe((data) => {
         if(data){
           this.person = data;
@@ -139,4 +147,36 @@ export class UserEditComponent {
       }
       
     }
+
+
+    showCommentDialog(gameName, index){
+      this.modalIndex = index;
+      this.modalGame = gameName;
+      this.createModal = true;
+      setTimeout(() => this.modalDisplay = true, 760);
+    }
+
+    saveGameInfo(){
+     
+      this.gameService.update(this.person).subscribe((data)=>{
+        if(data){
+          this.person = data;
+          this.person.gamesThisYear.forEach(element => {
+            element.modifica = true;
+            this.modalDisplay = false;
+            setTimeout(() => this.createModal = false,760);
+          });
+        }
+      })
+      
+      
+    }
+
+    digestClose(){
+      this.modalDisplay = false;
+      setTimeout(() => this.createModal = false, 760);
+    }
+
+    
+    
 }

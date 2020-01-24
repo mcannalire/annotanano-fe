@@ -4,6 +4,26 @@
     text-align: right;
   }
 
+  .grid-modal {
+    padding-top: 20px;
+  }
+
+  .logo-input-modal {
+    width: 65%;
+  }
+
+  .img-modal {
+    max-width: 600px;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+  }
+
+  .text-area-modal {
+    width: 100%;
+    height: 150px;
+  }
+
   .button-edit {
     background-color: dimgray;
     color: white;
@@ -23,6 +43,11 @@
   .gamer-box {
     background-color: beige;
     margin-bottom: 20px;
+  }
+
+  .comment-img {
+    height: 35px;
+    width: 35px;
   }
   
   .avatar-box {

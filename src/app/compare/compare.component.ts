@@ -20,6 +20,8 @@ export class CompareComponent {
     youBlood;
     opponentBlood;
     noGames;
+    youScore = null;
+    opponentScore = null;
     
     constructor(private gamesService: GamesService) {
         this.gamesService.getAllByUserId().subscribe((data) => {
@@ -41,6 +43,8 @@ export class CompareComponent {
     }
 
     confronta(){
+        this.youScore = null;
+        this.opponentScore = null;
         this.youBlood = false;
         this.opponentBlood = false;
         this.personaSelezionata = true;
@@ -51,8 +55,10 @@ export class CompareComponent {
         of(event).pipe(
             delay(2000)
         ).subscribe(() => {
-            this.showBlood(result);
-            this.playAudio(result);
+            this.showBlood(result.rate);
+            this.playAudio(result.rate);
+            this.youScore = result.youScore;
+            this.opponentScore = result.opponentScore;
         })
     }
 
@@ -70,23 +76,26 @@ export class CompareComponent {
             this.opponentBlood = true;
     }
 
-    compare() : string{
+    compare() : any{
+        this.youScore = 0;
+        this.opponentScore = 0;
+
         let winFieldsYou = 0;
         let winFieldsOpponent = 0;
 
-        if(this.you.stats.completedRatio > this.selectedPerson.stats.completedRatio)
+        if(this.you.stats.completedRatio > this.selectedPerson.stats.completedRatio) //3
             winFieldsYou = winFieldsYou + 3;
 
         if(this.you.stats.completedRatio < this.selectedPerson.stats.completedRatio)
             winFieldsOpponent = winFieldsOpponent + 3;
 
-        if(this.you.stats.completedGames > this.selectedPerson.stats.completedGames)
+        if(this.you.stats.completedGames > this.selectedPerson.stats.completedGames) //8
             winFieldsYou = winFieldsYou + 5;
 
         if(this.you.stats.completedGames < this.selectedPerson.stats.completedGames)
             winFieldsOpponent = winFieldsOpponent + 5;
         
-        if(this.you.stats.numGames > this.selectedPerson.stats.numGames)
+        if(this.you.stats.numGames > this.selectedPerson.stats.numGames) //9
             winFieldsYou++;
 
         if(this.you.stats.numGames < this.selectedPerson.stats.numGames)
@@ -95,17 +104,22 @@ export class CompareComponent {
         if(this.you.stats.notFinished > this.selectedPerson.stats.notFinished) //campo contrario
             winFieldsOpponent++;
 
-        if(this.you.stats.notFinished < this.selectedPerson.stats.notFinished) //campo contrario
+        if(this.you.stats.notFinished < this.selectedPerson.stats.notFinished) //campo contrario 10
             winFieldsYou++;
 
+        if(this.you.stats.totalHours > this.selectedPerson.stats.totalHours) //12
+            winFieldsYou = winFieldsYou + 2;
 
-        if((winFieldsYou - winFieldsOpponent) > 5)
-            return 'excellent';
+        if(this.you.stats.totalHours < this.selectedPerson.stats.totalHours)
+            winFieldsOpponent = winFieldsOpponent + 2;
 
-        if((winFieldsOpponent - winFieldsYou) > 5)
-            return 'humilation';
+        if((winFieldsYou - winFieldsOpponent) > 6)
+            return {rate: 'excellent', youScore: winFieldsYou, opponentScore: winFieldsOpponent};
 
-        return 'normal';
+        if((winFieldsOpponent - winFieldsYou) > 6)
+            return {rate: 'humilation', youScore: winFieldsYou, opponentScore: winFieldsOpponent};
+
+        return {rate: 'normal', youScore: winFieldsYou, opponentScore: winFieldsOpponent};;
     }
 
     statsColor(personStatA, personStatB, reverse){
@@ -125,7 +139,9 @@ export class CompareComponent {
             this.you.stats.numGames = this.you.gamesThisYear.length;
             this.you.stats.completedGames = 0;
             this.you.stats.notFinished = 0;
+            this.you.stats.totalHours = 0;
             this.you.gamesThisYear.forEach(element => {
+                this.you.stats.totalHours += element.hours;
                 if(element.percentComp === 100){
                     this.you.stats.completedGames++;
                 } else {
@@ -142,7 +158,9 @@ export class CompareComponent {
             this.selectedPerson.stats.numGames = this.selectedPerson.gamesThisYear.length;
             this.selectedPerson.stats.completedGames = 0;
             this.selectedPerson.stats.notFinished = 0;
+            this.selectedPerson.stats.totalHours = 0;
             this.selectedPerson.gamesThisYear.forEach(element => {
+                this.selectedPerson.stats.totalHours += element.hours;
                 if(element.percentComp === 100){
                     this.selectedPerson.stats.completedGames++;
                 } else {
@@ -163,7 +181,8 @@ export class CompareComponent {
             completedRatio: 0,
             completedGames: 0,
             numGames: 0,
-            notFinished: 0
+            notFinished: 0,
+            totalHours: 0
         }
 
         return stat;

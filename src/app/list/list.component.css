@@ -29,6 +29,31 @@
   box-shadow: 2px 2px;
 }
 
+.grid-modal {
+  padding-top: 20px;
+}
+
+.logo-input-modal {
+  width: 65%;
+}
+
+.img-modal {
+  max-width: 600px;
+  max-height: 300px;
+  width: auto;
+  height: auto;
+}
+
+.text-area-modal {
+  width: 100%;
+  height: 150px;
+}
+
+.comment-img {
+  height: 35px;
+  width: 35px;
+}
+
 .person-name {
   padding-left: 20px;
   padding-top: 16%;
@@ -82,5 +107,16 @@
 .progress-bar {
   background-color: chartreuse;
   height: inherit;
+}
+
+.comment-label {
+  display: block;
+  font-size: large;
+  font-weight: bolder;
+}
+
+.comment-desc {
+  font-family: bellerose;
+  font-size: large;
 }
 

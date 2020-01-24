@@ -42,3 +42,18 @@
     height: 100px;
     z-index: 10;
   }
+
+  .final-score-label {
+    display: block;
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
+
+  .final-score {
+    font-size: x-large;
+    font-weight: bolder;
+  }
+
+  .final-score-box {
+    text-align: center;
+  }

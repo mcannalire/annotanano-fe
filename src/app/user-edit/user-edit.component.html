@@ -45,14 +45,19 @@
         </div>
         <div class="col-12 col-xs-12 grid-edit" *ngIf="person.gamesThisYear">
             <div class="row" *ngFor="let game of person.gamesThisYear; index as i">
-                <div class="games-box col-12 row">
+                <div class="games-box col-12 row" (click)="showCommentDialog(game, i)" style="cursor: pointer;">
                     <div class="col-2 col-xs-2" *ngIf="game.modifica">
                       <img class="platform-img" src="{{logos[game.platform]}}">
                     </div>
                     <div class="col-3 col-xs-2" *ngIf="!game.modifica">
                         <p-dropdown [options]="platforms" optionLabel="name" placeholder="Seleziona piattaforma" (onChange)="game.platform = selectedItem.value" [(ngModel)]="selectedItem"></p-dropdown>
                     </div>
-                    <div class="col-6 col-xs-6 grid-cell" *ngIf="game.modifica" [ngStyle]="{'font-family': fonts[game.platform]}">{{game.name}}</div>
+                    <div class="col-5 col-xs-6 grid-cell" *ngIf="game.modifica" [ngStyle]="{'font-family': fonts[game.platform]}">
+                        <span>{{game.name}}</span>
+                    </div>
+                    <div class="col-1 col-xs-6" *ngIf="game.modifica">
+                        <img class="comment-img" src="assets/img/comment.png" *ngIf="game.comment" pTooltip="{{person.name + ' ha inserito un commento per ' + game.name + '. Clicca per leggerlo'}}" tooltipPosition="top">
+                    </div>
                     <div class="col-5 col-xs-6" *ngIf="!game.modifica">
                         <span class="ui-float-label">
                             <input type="text" [(ngModel)]="game.name" pInputText>
@@ -101,3 +106,40 @@
         </div>
     </div>
 </div>
+
+<p-dialog header="{{modalGame.name}}" [(visible)]="modalDisplay" [modal]="true" *ngIf="createModal" (onHide)="digestClose()">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 grid-modal">
+                <span class="ui-float-label"> 
+                    <input type="text" [(ngModel)]="modalGame.logo" pInputText class="logo-input-modal">
+                    <label for="float-input">Inserisci URL immagine del gioco</label>
+                </span>
+            </div>
+            <div class="col-12 grid-modal" style="text-align: center;" *ngIf="modalGame.logo">
+                <img class="img-modal" src="{{modalGame.logo}}">
+            </div>
+            <div class="col-12 grid-modal" style="text-align: center;" *ngIf="!modalGame.logo">
+                <img class="img-modal" src="assets/img/no_game_img.png">
+            </div>
+            <div class="col-12 grid-modal ">
+                <span class="ui-float-label"> 
+                    <textarea class="text-area-modal" pInputTextarea [(ngModel)]="modalGame.comment"></textarea>
+                    <label for="float-input">Inserisci commento al gioco</label>
+                </span>
+            </div>
+            <div class="col-6 grid-modal">
+                <span>Numero di ore giocate: {{modalGame.hours ? modalGame.hours : 0}}</span>
+                <p-slider [(ngModel)]="modalGame.hours" min="1" max="500" step="1"></p-slider>
+            </div>
+            <div class="col-6 grid-modal rating" style="text-align: right;">
+                <span>Vota il tuo gioco: {{modalGame.rating ? modalGame.rating : 0}}/5</span>
+                <p-rating [cancel]="false" [(ngModel)]="modalGame.rating"></p-rating>
+            </div>
+            <div class="col-12 grid-modal">
+                <p-button label="Salva" (onClick)="saveGameInfo()" [disabled]="!modalGame.comment || !modalGame.hours"></p-button>
+                <div style="text-align: right; color: green; font-weight: bolder;" *ngIf="!modalGame.comment || !modalGame.hours">Per salvare devi inserire un commento e il numero di ore giocate</div>
+            </div>
+        </div>
+    </div>
+</p-dialog>
