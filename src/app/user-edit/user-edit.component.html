@@ -45,7 +45,7 @@
         </div>
         <div class="col-12 col-xs-12 grid-edit" *ngIf="person.gamesThisYear">
             <div class="row" *ngFor="let game of person.gamesThisYear; index as i">
-                <div class="games-box col-12 row" (click)="showCommentDialog(game, i)" style="cursor: pointer;">
+                <div class="games-box col-12 row">
                     <div class="col-2 col-xs-2" *ngIf="game.modifica">
                       <img class="platform-img" src="{{logos[game.platform]}}">
                     </div>
@@ -55,8 +55,8 @@
                     <div class="col-5 col-xs-6 grid-cell" *ngIf="game.modifica" [ngStyle]="{'font-family': fonts[game.platform]}">
                         <span>{{game.name}}</span>
                     </div>
-                    <div class="col-1 col-xs-6" *ngIf="game.modifica">
-                        <img class="comment-img" src="assets/img/comment.png" *ngIf="game.comment" pTooltip="{{person.name + ' ha inserito un commento per ' + game.name + '. Clicca per leggerlo'}}" tooltipPosition="top">
+                    <div class="col-1 col-xs-6" *ngIf="game.modifica" style="cursor: pointer;">
+                        <img class="comment-img" (click)="showCommentDialog(game, i)" src="assets/img/comment.png" *ngIf="game.comment" pTooltip="Inserisci commento" tooltipPosition="top">
                     </div>
                     <div class="col-5 col-xs-6" *ngIf="!game.modifica">
                         <span class="ui-float-label">
