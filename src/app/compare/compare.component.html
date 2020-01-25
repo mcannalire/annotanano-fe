@@ -27,8 +27,8 @@
     <div *ngIf="personaSelezionata" style="font-family: freakshow;">
         <div class="row">
             <div class="col-2 final-score-box">
-                <span *ngIf="youScore" class="final-score-label">Finale</span>
-                <span *ngIf="youScore" class="final-score" [ngStyle]="{'color': youScore > opponentScore ? 'darkgoldenrod' : ''}">{{youScore}}</span>
+                <span *ngIf="displayFinalScore" class="final-score-label">Finale</span>
+                <span *ngIf="displayFinalScore" class="final-score" [ngStyle]="{'color': youScore > opponentScore ? 'darkgoldenrod' : ''}">{{youScore}}</span>
             </div>
             <div class="col-4 avatar-box">
                 <img class="blood-img" *ngIf="youBlood" src="assets/img/blood.gif">
@@ -44,8 +44,8 @@
                 <img class="avatar-img-opponent" *ngIf="!selectedPerson.avatarUrl" [ngStyle]="{'filter': opponentBlood ? 'grayscale(100%)' : ''}"  src="assets/img/derp.jpg">
             </div>
             <div class="col-1 final-score-box">
-                <span *ngIf="opponentScore" class="final-score-label">Finale</span>
-                <span *ngIf="opponentScore" class="final-score" [ngStyle]="{'color': opponentScore > youScore ? 'darkgoldenrod' : ''}">{{opponentScore}}</span>
+                <span *ngIf="displayFinalScore" class="final-score-label">Finale</span>
+                <span *ngIf="displayFinalScore" class="final-score" [ngStyle]="{'color': opponentScore > youScore ? 'darkgoldenrod' : ''}">{{opponentScore}}</span>
             </div>
         </div>
         <div class="row">

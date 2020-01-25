@@ -22,6 +22,7 @@ export class CompareComponent {
     noGames;
     youScore = null;
     opponentScore = null;
+    displayFinalScore = false;
     
     constructor(private gamesService: GamesService) {
         this.gamesService.getAllByUserId().subscribe((data) => {
@@ -43,6 +44,7 @@ export class CompareComponent {
     }
 
     confronta(){
+        this.displayFinalScore = false;
         this.youScore = null;
         this.opponentScore = null;
         this.youBlood = false;
@@ -59,6 +61,7 @@ export class CompareComponent {
             this.playAudio(result.rate);
             this.youScore = result.youScore;
             this.opponentScore = result.opponentScore;
+            this.displayFinalScore = true;
         })
     }
 

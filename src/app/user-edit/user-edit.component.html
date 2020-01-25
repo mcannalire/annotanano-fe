@@ -56,7 +56,8 @@
                         <span>{{game.name}}</span>
                     </div>
                     <div class="col-1 col-xs-6" *ngIf="game.modifica" style="cursor: pointer;">
-                        <img class="comment-img" (click)="showCommentDialog(game, i)" src="assets/img/comment.png" *ngIf="game.comment" pTooltip="Inserisci commento" tooltipPosition="top">
+                        <img class="comment-img" (click)="showCommentDialog(game, i)" src="assets/img/comment.png" *ngIf="!game.comment" pTooltip="{{'Inserisci commento per ' + game.name}}" tooltipPosition="top">
+                        <img class="comment-img" (click)="showCommentDialog(game, i)" src="assets/img/comment.png" *ngIf="game.comment" pTooltip="{{'Modifica commento per ' + game.name}}" tooltipPosition="top">
                     </div>
                     <div class="col-5 col-xs-6" *ngIf="!game.modifica">
                         <span class="ui-float-label">
