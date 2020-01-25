@@ -87,6 +87,7 @@ export class ListUserComponent{
               let score = 0;
               person.gamesThisYear.forEach((game: any) => {
                 score += game.percentComp === 100 ? 750 : game.percentComp;
+                score += game.hours ? game.hours : 0;
               })
               
               this.scoreDatas.push([person.name, score]);
