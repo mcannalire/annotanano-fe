@@ -39,7 +39,7 @@
                 <span class="person-name">{{person.name}}</span>
               </div>
               <div class="col-2">
-                <img src="{{person.badge}}" class="badge-class">
+                <img src="{{person.badge.img}}" *ngIf="person.badge" class="badge-class" pTooltip="{{person.badge.value}}" tooltipPosition="top">
               </div>
             </div>
             <div class="col-12">

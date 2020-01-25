@@ -29,6 +29,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RatingModule } from 'primeng/rating';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,10 @@ import { RatingModule } from 'primeng/rating';
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingScreenInterceptor,
       multi: true
+    },
+    {
+      provide: LocationStrategy, 
+      useClass: HashLocationStrategy
     },
     CookieService
   ],

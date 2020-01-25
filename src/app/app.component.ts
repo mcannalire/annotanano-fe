@@ -23,7 +23,7 @@ export class AppComponent {
   }
 
   notLogin() : boolean{
-    if(window.location.pathname == '/login'){
+    if(window.location.hash == '#/login'){
       return false;
     }
     return true;

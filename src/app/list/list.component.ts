@@ -31,11 +31,18 @@ export class ListUserComponent{
     XB: 'xbox'
   }
 
+  badgeMessage = {
+    PC: 'PC Master Race',
+    NS: 'Nintendaro',
+    PS: 'Sonaro',
+    XB: 'Microsoft fag'
+  }
+
   stereotype = {
-    PC: 'assets/img/mouse.png',
-    NS: 'assets/img/switch.png',
-    PS: 'assets/img/pslogo.jpg',
-    XB: 'assets/img/xbox.webp'
+    PC: { img:'assets/img/mouse.png', value: 'PC Master Race'},
+    NS: { img:'assets/img/switch.png', value: 'Nintendaro'},
+    PS: { img: 'assets/img/pslogo.jpg', value: 'Sonaro'},
+    XB: { img: 'assets/img/xbox.webp', value: 'Microsoft fag'}
   }
 
   logos = { 
@@ -208,7 +215,7 @@ export class ListUserComponent{
 
 }
 
-  private getBadge(person):string{
+  private getBadge(person):any{
     const games = person.gamesThisYear;
     let countNintendo = 0;
     let countXbox = 0;
