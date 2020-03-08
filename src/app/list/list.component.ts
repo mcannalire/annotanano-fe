@@ -1,11 +1,12 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { GamesService } from '../services/games.service';
 import { element } from 'protractor';
 
 @Component({
   selector: 'annotanano-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  styleUrls: ['./list.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ListUserComponent{
   ordering = '';
@@ -214,6 +215,58 @@ export class ListUserComponent{
     
   }
 
+}
+
+customGameComparator(game1, game2) {
+  if(game1 && !game2){
+    return 1;
+  }
+
+  if(!game1 && game2){
+    return -1;
+  }
+
+  if(!game1 && !game2){
+    return 0;
+  }
+
+  if(game1 && game2){
+    if(game1.percentComp > game2.percentComp){
+      return 1;
+    }
+
+    if(game1.percentComp < game2.percentComp){
+      return -1;
+    }
+
+    if(game1.percentComp === game2.percentComp){
+      if(game1.hours && !game2.hours){
+        return 1;
+      }
+
+      if(!game1.hours && game2.hours){
+        return -1;
+      }
+
+      if(game1.hours && game2.hours){
+        if(game1.hours > game2.hours){
+          return 1;
+        }
+
+        if(game1.hours < game2.hours){
+          return -1;
+        }
+
+        if(game1.hours === game2.hours){
+          return 0;
+        }
+      }
+
+      if(!game1.hours && !game2.hours){
+        return 0;
+      }
+    }
+  }
 }
 
   private getBadge(person):any{

@@ -120,3 +120,13 @@
   font-size: large;
 }
 
+.goty-color .ui-progressbar .ui-progressbar-value {
+  background-color: darkgoldenrod;
+}
+
+.star-rating {
+  height: 25px;
+  position: absolute;
+  z-index: 2;
+}
+
