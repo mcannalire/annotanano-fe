@@ -24,7 +24,7 @@ export class LoginComponent {
           if(data.userId !== 'NA'){
             sessionStorage.setItem('userId', data.userId);
             if(this.rememberMe){
-              this.cookieService.set('userId', sessionStorage.getItem('userId'));
+              this.cookieService.set('userId', sessionStorage.getItem('userId'), 365);
             }
             this.router.navigateByUrl('/edit');
           } else {

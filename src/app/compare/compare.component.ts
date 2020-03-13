@@ -58,7 +58,8 @@ export class CompareComponent {
             delay(2000)
         ).subscribe(() => {
             this.showBlood(result.rate);
-            this.playAudio(result.rate);
+            if(result.rate !== 'normal')
+                this.playAudio(result.rate);
             this.youScore = result.youScore;
             this.opponentScore = result.opponentScore;
             this.displayFinalScore = true;
@@ -151,7 +152,7 @@ export class CompareComponent {
                     this.you.stats.notFinished++;
                 }
             });
-            this.you.stats.completedRatio = Math.round((this.you.stats.completedGames/this.you.stats.numGames) * 100) / 100
+            this.you.stats.completedRatio = Math.round((this.you.stats.completedGames/this.you.stats.numGames) * 100);
         } else {
             this.you.stats = this.defaultStats();
         }
@@ -170,7 +171,7 @@ export class CompareComponent {
                     this.selectedPerson.stats.notFinished++;
                 }
             });
-            this.selectedPerson.stats.completedRatio = Math.round((this.selectedPerson.stats.completedGames/this.selectedPerson.stats.numGames) * 100) / 100
+            this.selectedPerson.stats.completedRatio = Math.round((this.selectedPerson.stats.completedGames/this.selectedPerson.stats.numGames) * 100);
         } else {
             this.selectedPerson.stats = this.defaultStats();
         }

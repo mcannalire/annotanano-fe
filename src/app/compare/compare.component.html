@@ -50,15 +50,15 @@
         </div>
         <div class="row">
             <div class="col-2  grid-compare" pTooltip="La vittoria su questo campo vale 3 punti" tooltipPosition="top">
-                <span>Ratio Completi/Numero Giochi</span>
+                <span>Percentuale Completi/Numero Giochi</span>
             </div>
             <div class="col-4  grid-compare-score" [ngStyle]="{'color': statsColor(you.stats.completedRatio, selectedPerson.stats.completedRatio, false)}">
-                <span>{{you.stats.completedRatio}}</span>
+                <span>{{you.stats.completedRatio}}%</span>
             </div>
             <div class="col-1  grid-compare">
             </div>
             <div class="col-4 grid-compare-score" [ngStyle]="{'color': statsColor(selectedPerson.stats.completedRatio, you.stats.completedRatio, false)}">
-                <span>{{selectedPerson.stats.completedRatio}}</span>
+                <span>{{selectedPerson.stats.completedRatio}}%</span>
             </div>
             <div class="col-1  grid-compare">
             </div>
