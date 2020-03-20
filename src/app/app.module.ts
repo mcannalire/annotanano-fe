@@ -24,6 +24,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { TooltipModule } from 'primeng/tooltip';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { PasswordModule } from 'primeng/password';
+import { CardModule } from 'primeng/card';
 import { CompareComponent } from './compare/compare.component';
 import { CookieService } from 'ngx-cookie-service';
 import { DialogModule } from 'primeng/dialog';
@@ -60,7 +61,8 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
     PasswordModule,
     DialogModule,
     InputTextareaModule,
-    RatingModule
+    RatingModule,
+    CardModule
   ],
   providers: [AuthGuard,
     {

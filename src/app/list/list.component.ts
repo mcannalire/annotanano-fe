@@ -21,6 +21,12 @@ export class ListUserComponent{
 
   title = 'Annotanano 2020';
 
+  cardView = {desc: 'Mostra classifica discendente', code: 'DISC'};
+  views = [
+    {desc: 'Mostra visuale estesa', code: 'DISC'},
+    {desc: 'Mostra visuale a carte', code: 'CARD'}
+  ]
+
   giochiCompleti = false;
   reverse = false;
   mostraGrafico = false;
@@ -86,10 +92,19 @@ export class ListUserComponent{
             if(person.name){
               //this.columns.push(person.name);
               let score = 0;
+              person.giochiCompletati = 0; 
+              person.giochiGiocati = 0;
+              person.hours = 0;
               person.gamesThisYear.forEach((game: any) => {
                 score += game.percentComp === 100 ? 750 : game.percentComp;
+                if(game.percentComp === 100){
+                  person.giochiCompletati++;
+                }
                 score += game.hours ? game.hours : 0;
+                person.hours += game.hours ? game.hours : 0;
               })
+
+              person.giochiGiocati = person.gamesThisYear ? person.gamesThisYear.length : 0;
               
               this.scoreDatas.push([person.name, score]);
               if(score > maxScore){

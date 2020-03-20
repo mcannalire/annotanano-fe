@@ -130,3 +130,29 @@
   z-index: 2;
 }
 
+.card-class {
+  height: 250px;
+  margin-bottom: 20px;
+}
+
+.inner-card-class {
+  margin-right: 10px;
+  margin-left: 10px;
+  border: 2px solid gold;
+  height: inherit;
+  background-color: beige;
+}
+
+
+.person-name-card {
+  color: white;
+  text-shadow: 2px 2px 4px black;
+  display: block;
+  padding-bottom: 5px;
+}
+
+.grid-info {
+  display: grid;
+  font-weight: bold;
+}
+
