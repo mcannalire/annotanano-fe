@@ -20,20 +20,78 @@
         <div class="col-12 col-xs-12 grid-edit">
             <p-button label="Aggiungi Gioco" (onClick)="addGame()" *ngIf="!aggiungiGioco"></p-button>
             <div class="row" *ngIf="aggiungiGioco">
-                <div class="col-4 col-xs-4">
+                <div class="col-3 col-xs-3">
                     <span class="ui-float-label">
                         <input type="text" [(ngModel)]="newGame.name" pInputText>
                         <label for="float-input">Inserisci Nome</label>
                     </span>
                 </div>
-                <div class="col-4 col-xs-4">
+                <div class="col-3 col-xs-3">
                     <p-dropdown [options]="platforms" (onChange)="newGame.platform = selectedItem.value" [(ngModel)]="selectedItem" optionLabel="name" placeholder="Seleziona piattaforma"></p-dropdown>
                 </div>
                 
                 <div class="col-4 col-xs-4">
-                    <span>Percentuale di completamento: {{newGame.percentComp}}%</span>
-                    <p-slider [(ngModel)]="newGame.percentComp" min="1" max="100" step="1"></p-slider>
+                    <span *ngIf="!newGame.col">Percentuale di completamento: {{newGame.percentComp}}%</span>
+                    <p-slider *ngIf="!newGame.col" [(ngModel)]="newGame.percentComp" min="1" max="100" step="1"></p-slider>
+                    <p-progressBar *ngIf="newGame.col" pTooltip="La percentuale di completamento verrà calcolata automaticamente in base al completamento dei giochi contenuti nella collection" [value]="newGame.percentComp"></p-progressBar>
                 </div>
+
+                <div class="col-2 col-xs-2">
+                    <p-checkbox pTooltip="Abilita la checkbox se il gioco che stai inserendo è una collection" binary="true" [(ngModel)]="newGame.col" label="Collection"></p-checkbox>
+                </div>
+
+                <div class="col-12 col-xs-12" *ngIf="newGame.col">
+                    <div class="col-12 col-xs-12 row collection-padding" *ngFor="let gameFromCollection of newGame.collection; index as i">
+                        <div class="col-3 col-xs-3" *ngIf="!gameFromCollection.modifica" [ngStyle]="{'font-family': fonts[newGame.platform] ? fonts[newGame.platform] : 'windows'}">
+                            <span>{{gameFromCollection.name}}</span>
+                        </div>
+                        <div class="col-3" *ngIf="gameFromCollection.modifica">
+                            <span class="ui-float-label">
+                                <input type="text" [(ngModel)]="gameFromCollection.name" pInputText>
+                                <label for="float-input">Inserisci Nome</label>
+                            </span>
+                        </div>
+                        <div class="col-5 col-xs-5" *ngIf="gameFromCollection.modifica" style="text-align:center">
+                            <span>{{gameFromCollection.percentComp}}%</span>
+                            <p-slider [(ngModel)]="gameFromCollection.percentComp" min="1" max="100" step="1"></p-slider>
+                        </div>
+                        <div class="col-5" *ngIf="!gameFromCollection.modifica">
+                            <p-progressBar [value]="gameFromCollection.percentComp"></p-progressBar>
+                        </div>
+                        <div class="col-1 col-xs-1" *ngIf="!gameFromCollection.modifica">
+                            <p-button styleClass="ui-button-info" icon="fa fa-check" icon="faPencilAltCollectionFirst" (onClick)="modificaGiocoCollectionFirst(gameFromCollection)" *ngIf="!gameFromCollection.modifica">
+                                <fa-icon [icon]="faPencilAlt"></fa-icon>
+                            </p-button>
+                        </div>
+                        <div class="col-1 col-xs-1" *ngIf="gameFromCollection.modifica">
+                            <p-button styleClass="ui-button-info" icon="faPencilAltCollectionFirst" (onClick)="annullaModificaGiocoCollectionFirst(gameFromCollection)" *ngIf="gameFromCollection.modifica">
+                                <fa-icon [icon]="faCheck"></fa-icon>
+                            </p-button>
+                        </div>
+                        <div class="col-1 col-xs-1">
+                            <p-button styleClass="ui-button-info" icon="faPencilAlt" (onClick)="eliminaGiocoCollectionFirst(i)">
+                                <fa-icon [icon]="faTrash"></fa-icon>
+                            </p-button>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xs-12 row collection-padding">
+                        <div class="col-3">
+                            <span class="ui-float-label">
+                                <input type="text" [(ngModel)]="newGameColl.name" pInputText>
+                                <label for="float-input">Inserisci Nome</label>
+                            </span>
+                        </div>
+                        <div class="col-5">
+                            <span>Percentuale di completamento: {{newGameColl.percentComp}}%</span>
+                            <p-slider [(ngModel)]="newGameColl.percentComp" min="1" max="100" step="1"></p-slider>
+                        </div>
+                        <div class="col-2">
+                            <p-button label="Aggiungi Gioco alla Collection" (onClick)="saveGameToCollection()" [disabled]="!newGameColl.name || newGameColl.name.length === 0"></p-button>
+                        </div>
+                        
+                    </div>
+                </div>
+
                 <div class="col-12 col-xs-12">
                     <p-button label="Aggiungi" (onClick)="saveGame()" *ngIf="aggiungiGioco" [disabled]="!newGame.name || newGame.name.length === 0"></p-button>
                 </div>
@@ -47,7 +105,9 @@
             <div class="row" *ngFor="let game of person.gamesThisYear; index as i">
                 <div class="games-box col-12 row">
                     <div class="col-2 col-xs-2" *ngIf="game.modifica">
-                      <img class="platform-img" src="{{logos[game.platform]}}">
+                      <img *ngIf="game.collection && game.collection.length > 0 && !game.explode" pTooltip="{{game.name + ' è una collection. Clicca qui per vederne la composizione'}}" class="plus-img" src="assets/img/plus.png" (click)="game.explode = !game.explode">
+                      <img *ngIf="game.collection && game.collection.length > 0 && game.explode" pTooltip="Clicca qui per minimizzare" class="plus-img" src="assets/img/minus.png" (click)="game.explode = !game.explode">
+                      <img class="platform-img" src="{{logos[game.platform]}}" [ngStyle]="{'margin-left': game.collection && game.collection.length > 0 ? '0px' : '20px'}">
                     </div>
                     <div class="col-3 col-xs-2" *ngIf="!game.modifica">
                         <p-dropdown [options]="platforms" optionLabel="name" placeholder="Seleziona piattaforma" (onChange)="game.platform = selectedItem.value" [(ngModel)]="selectedItem"></p-dropdown>
@@ -90,6 +150,58 @@
                         <p-button styleClass="ui-button-info" icon="faPencilAlt" (onClick)="eliminaGioco(i)">
                             <fa-icon [icon]="faTrash"></fa-icon>
                         </p-button>
+                    </div>
+
+                    <div class="col-12 col-xs-12" *ngIf="game.col && game.explode" style="margin-left: 5%;">
+                        <div class="col-12 col-xs-12 row collection-padding" *ngFor="let gameFromCollection of game.collection; index as j">
+                            <div class="col-3 col-xs-3" *ngIf="!gameFromCollection.modifica" [ngStyle]="{'font-family': fonts[game.platform] ? fonts[game.platform] : 'windows'}">
+                                <span>{{gameFromCollection.name}}</span>
+                            </div>
+                            <div class="col-3" *ngIf="gameFromCollection.modifica">
+                                <span class="ui-float-label">
+                                    <input type="text" [(ngModel)]="gameFromCollection.name" pInputText>
+                                    <label for="float-input">Inserisci Nome</label>
+                                </span>
+                            </div>
+                            <div class="col-5 col-xs-5" *ngIf="gameFromCollection.modifica" style="text-align:center">
+                                <span>{{gameFromCollection.percentComp}}%</span>
+                                <p-slider [(ngModel)]="gameFromCollection.percentComp" min="1" max="100" step="1"></p-slider>
+                            </div>
+                            <div class="col-5" *ngIf="!gameFromCollection.modifica">
+                                <p-progressBar [value]="gameFromCollection.percentComp"></p-progressBar>
+                            </div>
+                            <div class="col-1 col-xs-1" *ngIf="!gameFromCollection.modifica">
+                                <p-button styleClass="ui-button-info" icon="fa fa-check" icon="faPencilAltCollectionFirst" (onClick)="modificaGiocoCollection(i, j, gameFromCollection)" *ngIf="!gameFromCollection.modifica">
+                                    <fa-icon [icon]="faPencilAlt"></fa-icon>
+                                </p-button>
+                            </div>
+                            <div class="col-1 col-xs-1" *ngIf="gameFromCollection.modifica">
+                                <p-button styleClass="ui-button-info" icon="faPencilAltCollectionFirst" (onClick)="annullaModificaGiocoCollection(i, j, gameFromCollection)" *ngIf="gameFromCollection.modifica">
+                                    <fa-icon [icon]="faCheck"></fa-icon>
+                                </p-button>
+                            </div>
+                            <div class="col-1 col-xs-1">
+                                <p-button styleClass="ui-button-info" icon="faPencilAlt" (onClick)="eliminaGiocoCollection(i, j, gameFromCollection)">
+                                    <fa-icon [icon]="faTrash"></fa-icon>
+                                </p-button>
+                            </div>
+                        </div>
+                        <div class="col-12 col-xs-12 row collection-padding">
+                            <div class="col-3">
+                                <span class="ui-float-label">
+                                    <input type="text" [(ngModel)]="newGameColl.name" pInputText>
+                                    <label for="float-input">Inserisci Nome</label>
+                                </span>
+                            </div>
+                            <div class="col-5">
+                                <span>Percentuale di completamento: {{newGameColl.percentComp}}%</span>
+                                <p-slider [(ngModel)]="newGameColl.percentComp" min="1" max="100" step="1"></p-slider>
+                            </div>
+                            <div class="col-2">
+                                <p-button label="Aggiungi Gioco alla Collection" (onClick)="saveGameToCollection()" [disabled]="!newGameColl.name || newGameColl.name.length === 0"></p-button>
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
             </div>

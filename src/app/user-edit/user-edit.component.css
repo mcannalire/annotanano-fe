@@ -24,6 +24,15 @@
     height: 150px;
   }
 
+  .collection-padding{
+    padding-top: 20px;
+  }
+
+  .plus-img {
+    height: 20px;
+    cursor: pointer;
+  }
+
   .button-edit {
     background-color: dimgray;
     color: white;

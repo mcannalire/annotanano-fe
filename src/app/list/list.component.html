@@ -50,7 +50,9 @@
               <div *ngFor="let game of person.gamesThisYear | orderBy:ordering:true:false:customGameComparator" class="row games-grid">
                 <div class="games-box col-12 row" *ngIf="!giochiCompleti || (giochiCompleti && game.percentComp === 100)">
                   <div class="col-2">
-                    <img class="platform-img" src="{{logos[game.platform]}}">
+                    <img *ngIf="game.collection && game.collection.length > 0 && !game.explode" pTooltip="{{game.name + ' è una collection. Clicca qui per vederne la composizione'}}" class="plus-img" src="assets/img/plus.png" (click)="game.explode = !game.explode">
+                      <img *ngIf="game.collection && game.collection.length > 0 && game.explode" pTooltip="Clicca qui per minimizzare" class="plus-img" src="assets/img/minus.png" (click)="game.explode = !game.explode">
+                    <img class="platform-img" src="{{logos[game.platform]}}" [ngStyle]="{'margin-left': game.collection && game.collection.length > 0 ? '0px' : '20px'}">
                   </div>
                   <div class="col-7 grid-cell" [ngStyle]="{'font-family': fonts[game.platform]}">{{game.name}}</div>
                   <!--<div class="col-2 grid-cell-status">{{game.status === 0 ? 'In corso' : 'Completato'}}</div>-->
@@ -68,6 +70,16 @@
                         <img src="assets/img/star_rating.png" class="star-rating" pTooltip="{{person.name + ' ha dato il massimo dei voti a ' + game.name}}">
                       </div>
                       <p-progressBar [ngClass]="game.rating === 5 ? 'goty-color' : ''" [value]="game.percentComp"></p-progressBar>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-xs-12" *ngIf="game.col && game.explode" style="margin-left: 5%;">
+                  <div class="col-12 col-xs-12 row collection-padding" *ngFor="let gameFromCollection of game.collection; index as j">
+                    <div class="col-3 col-xs-3" [ngStyle]="{'font-family': fonts[game.platform] ? fonts[game.platform] : 'windows'}">
+                      <span>{{gameFromCollection.name}}</span>
+                    </div>
+                    <div class="col-5" >
+                      <p-progressBar [value]="gameFromCollection.percentComp"></p-progressBar>
                     </div>
                   </div>
                 </div>

@@ -156,3 +156,12 @@
   font-weight: bold;
 }
 
+.plus-img {
+  height: 20px;
+  cursor: pointer;
+}
+
+.collection-padding{
+  padding-top: 20px;
+}
+

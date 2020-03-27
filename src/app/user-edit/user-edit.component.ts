@@ -22,6 +22,7 @@ export class UserEditComponent {
   faPencilAlt = faPencilAlt;
   faTrash = faTrash;
   faCheck = faCheck;
+ 
 
   createModal: boolean = false;
 
@@ -61,9 +62,10 @@ export class UserEditComponent {
       value:'PS'
     }]
     aggiungiGioco: boolean = false;
-    newGame: any = {}
+    newGame: any = {};
+    newGameColl: any = {};
 
-    person: any = {}
+    person: any = {};
 
     constructor(private gameService: GamesService, private ref: ChangeDetectorRef){
       this.gameService.getUserGames().subscribe((data) => {
@@ -85,6 +87,26 @@ export class UserEditComponent {
       //this.newGame.platform = this.platforms[0];
     }
 
+    saveGameToCollection(){
+      if(!this.newGame.collection){
+        this.newGame.collection = [];
+      }
+
+      if(!this.newGameColl.percentComp){
+        this.newGameColl.percentComp = 1;
+      }
+
+      let collectionGame = {
+        name: this.newGameColl.name,
+        percentComp: this.newGameColl.percentComp,
+        modifica: false
+      }
+      
+      this.newGame.collection.push(collectionGame);
+      this.newGameColl = {};
+      this.calculatePercentageFirst();
+    }
+
     modificaGioco(game){
       game.modifica = false;
     }
@@ -97,6 +119,68 @@ export class UserEditComponent {
       this.person.gamesThisYear.splice(index, 1);
     }
 
+    modificaGiocoCollectionFirst(game){
+      game.modifica = true;
+      this.calculatePercentageFirst();
+    }
+
+    annullaModificaGiocoCollectionFirst(game){
+      game.modifica = false;
+      this.calculatePercentageFirst();
+    }
+
+    private calculatePercentageFirst(){
+      if(!this.newGame.percentComp){
+        this.newGame.percentComp = 1;
+      }
+
+      let totalPercentage = 0;
+      this.newGame.collection.forEach(elem => {
+        totalPercentage += elem.percentComp;
+      })
+
+      if(this.newGame.collection.length !== 0)
+        this.newGame.percentComp = Math.floor(totalPercentage/this.newGame.collection.length);
+      else
+        this.newGame.percentComp = 1;
+    }
+
+    private calculatePercentage(i, j, game: any){
+      if(!game.percentComp){
+        game.percentComp = 1;
+      }
+
+      let totalPercentage = 0;
+      this.person.gamesThisYear[i].collection.forEach(elem => {
+        totalPercentage += elem.percentComp;
+      })
+
+      if(this.person.gamesThisYear[i].collection.length !== 0)
+        this.person.gamesThisYear[i].percentComp = Math.floor(totalPercentage/this.newGame.collection.length);
+      else
+        this.person.gamesThisYear[i].percentComp = 1;
+    }
+
+    eliminaGiocoCollectionFirst(index){
+      this.newGame.collection.splice(index, 1);
+      this.calculatePercentageFirst();
+    }
+
+    modificaGiocoCollection(i, j, game){
+      game.modifica = true;
+      this.calculatePercentage(i, j, game);
+    }
+
+    annullaModificaGiocoCollection(i, j, game){
+      game.modifica = false;
+      this.calculatePercentage(i, j, game);
+    }
+
+    eliminaGiocoCollection(i, j, game){
+      this.person.gamesThisYear[i].collection.splice(j, 1);
+      this.calculatePercentage(i, j, game);
+    }
+
     saveGame(){
       this.aggiungiGioco = false;
       
@@ -105,6 +189,7 @@ export class UserEditComponent {
       }
       
       this.newGame.modifica = true;
+      this.newGame.explode = false;
       if(this.person.gamesThisYear){
         this.person.gamesThisYear.push(this.newGame);
       } else {
