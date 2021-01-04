@@ -105,10 +105,10 @@ export class GoldBookComponent {
     });
   }
 
-  onYearSelected(value){
+  onYearSelected(event){
     this.listPerson.forEach((person: any) => {
       if(person.userGoldbook[this.yearSelected.code]){
-        person.yearSelected = this.yearSelected.code;
+        person.yearSelected = event.value.code;
       }
     });
   }
