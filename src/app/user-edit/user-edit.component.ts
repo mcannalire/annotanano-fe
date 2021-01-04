@@ -34,14 +34,20 @@ export class UserEditComponent {
     PC: 'windows',
     NS: 'nintendo',
     PS: 'playstation',
-    XB: 'xbox'
+    XB: 'xbox',
+    P5: 'playstation',
+    XX: 'xbox',
+    ST: 'windows'
   }
 
   logos = { 
     NS: 'assets/img/ns.jpg',
     PC: 'assets/img/pc.jpg',
     XB: 'assets/img/xb.gif',
-    PS: 'assets/img/ps.jpg'
+    PS: 'assets/img/ps.jpg',
+    P5: 'assets/img/ps5.jpg',
+    XX: 'assets/img/xx.jpg',
+    ST: 'assets/img/stadia.jpg'
   }
   
     platforms = [
@@ -58,9 +64,22 @@ export class UserEditComponent {
       value:'XB'
     }, 
     {
-      name: 'Playstation',
+      name: 'Playstation 4',
       value:'PS'
-    }]
+    },
+    {
+      name: 'Playstation 5',
+      value: 'P5'
+    },
+    {
+      name: 'Xbox Series X|S',
+      value: 'XX'
+    },
+    {
+      name: 'Google Stadia',
+      value: 'ST'
+    }
+    ]
     aggiungiGioco: boolean = false;
     newGame: any = {};
     newGameColl: any = {};

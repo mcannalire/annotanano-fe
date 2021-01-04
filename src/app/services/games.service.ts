@@ -42,4 +42,10 @@ export class GamesService {
         });
     }
 
+    gameGoldbookList() : Observable<any>{
+        return this.http.get('https://annotanano-spring.herokuapp.com/api/getAllGoldBook', {
+            headers: {'accept': 'application/json'}
+        });
+    }
+
 }

@@ -1,0 +1,102 @@
+<div class="container" style="padding-top:70px">
+    <div class="order-combo-box">
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-12 row">
+            <div class="col-6">
+              <div *ngIf="!mostraGrafico" style="text-align: left;">
+                  Seleziona Anno:
+                  <p-dropdown [options]="listYear" optionLabel="desc" [(ngModel)]="yearSelected" (onChange)="onYearSelected()"></p-dropdown>
+              </div>
+            </div>
+            <div class="col-3"></div>
+            <div class="col-3">
+            </div>
+            <div class="col-3">
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div #googleChartId class="col-12" *ngFor="let i = index;let person of listPerson | orderBy:ordering:false:false:customComparator">
+          <div class="gamer-box">
+              <div class="avatar-box col-12 row">
+                <div class="col-2">
+                  <img class="crown-img" src="assets/img/crown.png" *ngIf="i === 0"> 
+                  <img class="avatar-img" *ngIf="person.avatarUrl"  src="{{person.avatarUrl}}">
+                  <img class="avatar-img" *ngIf="!person.avatarUrl"  src="assets/img/derp.jpg">
+                </div>
+                <div class="col-8">
+                  <span class="person-name">{{person.name}}</span>
+                </div>
+                <div class="col-2">
+                  <img src="{{person.badge.img}}" *ngIf="person.badge" class="badge-class" pTooltip="{{person.badge.value}}" tooltipPosition="top">
+                </div>
+              </div>
+              <div class="col-12">
+                <div *ngFor="let game of person.userGoldbook[yearSelected.code] | orderBy:ordering:true:false:customGameComparator" class="row games-grid">
+                  <div class="games-box col-12 row" *ngIf="!giochiCompleti || (giochiCompleti && game.percentComp === 100)">
+                    <div class="col-2">
+                      <img *ngIf="game.collection && game.collection.length > 0 && !game.explode" pTooltip="{{game.name + ' è una collection. Clicca qui per vederne la composizione'}}" class="plus-img" src="assets/img/plus.png" (click)="game.explode = !game.explode">
+                        <img *ngIf="game.collection && game.collection.length > 0 && game.explode" pTooltip="Clicca qui per minimizzare" class="plus-img" src="assets/img/minus.png" (click)="game.explode = !game.explode">
+                      <img class="platform-img" src="{{logos[game.platform]}}" [ngStyle]="{'margin-left': game.collection && game.collection.length > 0 ? '0px' : '20px'}">
+                    </div>
+                    <div class="col-7 grid-cell" [ngStyle]="{'font-family': fonts[game.platform]}">{{game.name}}</div>
+                    <!--<div class="col-2 grid-cell-status">{{game.status === 0 ? 'In corso' : 'Completato'}}</div>-->
+                    <div class="col-1" style="cursor: pointer;" (click)="showCommentDialog(game, i)">
+                      <img class="comment-img" src="assets/img/comment.png" *ngIf="game.comment" pTooltip="{{person.name + ' ha inserito un commento per ' + game.name + '. Clicca per leggerlo'}}" tooltipPosition="top">
+                    </div>
+                    <div class="col-2">
+                      <div *ngIf="!game.comment">
+                        <!--<div class="progress-bar" [ngStyle]="{'width': game.percentComp + '%'}">{{game.percentComp}}%</div>-->
+                        <p-progressBar [value]="game.percentComp"></p-progressBar>
+                      </div>
+                      <div *ngIf="game.comment" pTooltip="{{'Ore giocate: ' + game.hours}}" tooltipPosition="top">
+                        <!--<div class="progress-bar" [ngStyle]="{'width': game.percentComp + '%'}">{{game.percentComp}}%</div>-->
+                        <div *ngIf="game.rating === 5" style="text-align: end;">
+                          <img src="assets/img/star_rating.png" class="star-rating" pTooltip="{{person.name + ' ha dato il massimo dei voti a ' + game.name}}">
+                        </div>
+                        <p-progressBar [ngClass]="game.rating === 5 ? 'goty-color' : ''" [value]="game.percentComp"></p-progressBar>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-xs-12" *ngIf="game.col && game.explode" style="margin-left: 5%;">
+                    <div class="col-12 col-xs-12 row collection-padding" *ngFor="let gameFromCollection of game.collection; index as j">
+                      <div class="col-3 col-xs-3" [ngStyle]="{'font-family': fonts[game.platform] ? fonts[game.platform] : 'windows'}">
+                        <span>{{gameFromCollection.name}}</span>
+                      </div>
+                      <div class="col-5" >
+                        <p-progressBar [value]="gameFromCollection.percentComp"></p-progressBar>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<p-dialog header="{{modalGame.name}}" [(visible)]="modalDisplay" [modal]="true" *ngIf="createModal" (onHide)="digestClose()">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 grid-modal" style="text-align: center;" *ngIf="modalGame.logo">
+                <img class="img-modal" src="{{modalGame.logo}}">
+            </div>
+            <div class="col-12 grid-modal" style="text-align: center;" *ngIf="!modalGame.logo">
+                <img class="img-modal" src="assets/img/no_game_img.png">
+            </div>
+            <div class="col-12 grid-modal ">
+                <!--<span class="comment-label">Commento:</span>-->
+                <span class="comment-desc">{{modalGame.comment}}</span>
+            </div>
+            <div class="col-6 grid-modal">
+                <span>Numero di ore giocate: {{modalGame.hours ? modalGame.hours : 0}}</span>
+            </div>
+            <div class="col-6 grid-modal rating" style="text-align: right;">
+                <span>Voto: {{modalGame.rating ? modalGame.rating : 0}}/5</span>
+                <p-rating [cancel]="false" [(ngModel)]="modalGame.rating" [readonly]="true"></p-rating>
+            </div>
+        </div>
+    </div>
+</p-dialog>

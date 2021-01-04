@@ -6,6 +6,7 @@ import { UserEditComponent } from './user-edit/user-edit.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './services/auth.guard';
 import { CompareComponent } from './compare/compare.component';
+import { GoldBookComponent } from './goldbook/goldbook.component';
 
 const appRoutes: Routes = [
   {
@@ -29,6 +30,11 @@ const appRoutes: Routes = [
     path: 'compare',
     component: CompareComponent,
     data: { title: 'Annotanano Compare Utente' }
+  },
+  {
+    path: 'goldbook',
+    component: GoldBookComponent,
+    data: { title: 'Annotanano Albo d\'oro' }
   }
 ];
 

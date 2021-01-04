@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { OrderModule } from 'ngx-order-pipe';
 import { ListUserComponent } from './list/list.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
+import { GoldBookComponent } from './goldbook/goldbook.component';
 import { LoginComponent } from './login/login.component';
 import { LoaderComponent } from './loader/loader.component';
 import { AppRoutingModule } from "./app.module-routing";
@@ -39,7 +40,8 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
     UserEditComponent,
     LoginComponent,
     LoaderComponent,
-    CompareComponent
+    CompareComponent,
+    GoldBookComponent
   ],
   imports: [
     BrowserModule, 

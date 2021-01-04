@@ -9,7 +9,7 @@
                 <p-dropdown [options]="views" optionLabel="desc" [(ngModel)]="cardView"></p-dropdown>
             </div>
           </div>
-          <div class="col-3" *ngIf="mostraGrafico"></div>
+          <div class="col-3"></div>
           <div class="col-3">
             <p-checkbox binary="true" [(ngModel)]="mostraGrafico" (onChange)="getContainerWidth()" label="Mostra grafico punteggi" ></p-checkbox>
           </div>

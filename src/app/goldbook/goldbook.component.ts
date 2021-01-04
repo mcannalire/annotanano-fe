@@ -1,35 +1,16 @@
-import { Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { GamesService } from '../services/games.service';
-import { element } from 'protractor';
 
 @Component({
-  selector: 'annotanano-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css'],
-  encapsulation: ViewEncapsulation.None
+  selector: 'annotanano-goldbook',
+  templateUrl: './goldbook.component.html',
+  styleUrls: ['./goldbook.component.css']
 })
-export class ListUserComponent{
-  ordering = '';
-
+export class GoldBookComponent {
   createModal: boolean = false;
   modalGame: any = {};
   modalDisplay: boolean = false;
   modalIndex: number;
-
-  @ViewChild("googleChartId", {})
-  container : ElementRef;
-
-  title = 'Annotanano 2020';
-
-  cardView = {desc: 'Mostra classifica discendente', code: 'DISC'};
-  views = [
-    {desc: 'Mostra visuale estesa', code: 'DISC'},
-    {desc: 'Mostra visuale a carte', code: 'CARD'}
-  ]
-
-  giochiCompleti = false;
-  reverse = false;
-  mostraGrafico = false;
 
   fonts = {
     PC: 'windows',
@@ -65,36 +46,21 @@ export class ListUserComponent{
     XX: 'assets/img/xx.jpg',
     ST: 'assets/img/stadia.jpg'
   }
-  listPerson = [];
-  columns = ['Nome', 'Punteggio', { role: 'style' }];
-  scoreDatas = [];
 
-  options = {
-    title: 'Punteggio',
-    chartArea: {width: '50%'},
-    annotations: {
-    },
-    legend: {position: 'none'},
-    hAxis: {
-      title: '',
-      minValue: 0,
-    },
-    vAxis: {
-      title: ''
-    },
-    width: 600,
-    height: 500
-  };
+  listPerson = [];
+  listYear = [];
+  scoreDatas = [];
+  yearSelected = {code: '2020_list', desc: '2020'};
 
   constructor(private gamesService: GamesService){
-    this.gamesService.getAll().subscribe((data : any) => {
-      this.listPerson = data;
-
-      let maxScore = 0;
-      if(this.listPerson){
+    this.calculateYears();
+    this.gamesService.gameGoldbookList().subscribe((data : any) => {
+        this.listPerson = data;
+        let maxScore = 0;
+        if(this.listPerson){
         
         this.listPerson.forEach((person: any) => {
-          if(person.gamesThisYear){
+          if(person.userGoldbook[this.yearSelected.code]){
             person.badge = this.getBadge(person);
             if(person.name){
               //this.columns.push(person.name);
@@ -102,7 +68,8 @@ export class ListUserComponent{
               person.giochiCompletati = 0; 
               person.giochiGiocati = 0;
               person.hours = 0;
-              person.gamesThisYear.forEach((game: any) => {
+              person.yearSelected = this.yearSelected.code;
+              person.userGoldbook[this.yearSelected.code].forEach((game: any) => {
                 score += game.percentComp === 100 ? 750 : game.percentComp;
                 if(game.percentComp === 100){
                   person.giochiCompletati++;
@@ -111,7 +78,7 @@ export class ListUserComponent{
                 person.hours += game.hours ? game.hours : 0;
               })
 
-              person.giochiGiocati = person.gamesThisYear ? person.gamesThisYear.length : 0;
+              person.giochiGiocati = person.userGoldbook[this.yearSelected.code] ? person.userGoldbook[this.yearSelected.code].length : 0;
               
               this.scoreDatas.push([person.name, score]);
               if(score > maxScore){
@@ -134,57 +101,41 @@ export class ListUserComponent{
           }
         });
       }
-
-      
-      
-    })
+    });
   }
 
-  getContainerWidth(){
-    if(this.container)
-      this.options.width = this.container.nativeElement.offsetWidth;
-  }
-
-  customComparatorScore(element1, element2){
-    if(element1[1] && !element2[1])
-      return 1;
-
-    if(!element1[1] && element2[1])
-      return -1;
-
-    if(element1[1] > element2[1])
-      return 1;
-    
-    if(element1[1] < element2[1])
-      return -1
-
-    return 0;
+  onYearSelected(value){
+    this.listPerson.forEach((person: any) => {
+      if(person.userGoldbook[this.yearSelected.code]){
+        person.yearSelected = this.yearSelected.code;
+      }
+    });
   }
 
   customComparator(person1, person2) {
-    if(person1.gamesThisYear && !person2.gamesThisYear)
+    if(person1.userGoldbook[person1.yearSelected] && !person2.userGoldbook[person2.yearSelected])
       return -1;
     
-    if(!person1.gamesThisYear && person2.gamesThisYear)
+    if(!person1.userGoldbook[person1.yearSelected] && person2.userGoldbook[person2.yearSelected])
       return 1;
 
-    if(person1.gamesThisYear.length !== 0 && person2.gamesThisYear.length === 0)
+    if(person1.userGoldbook[person1.yearSelected].length !== 0 && person2.userGoldbook[person2.yearSelected].length === 0)
       return -1;
 
-    if(person1.gamesThisYear.length === 0 && person2.gamesThisYear.length !== 0)
+    if(person1.userGoldbook[person1.yearSelected].length === 0 && person2.userGoldbook[person2.yearSelected].length !== 0)
       return 1;
     
-    if(person1.gamesThisYear.length !== 0 && person2.gamesThisYear.length !== 0){
+    if(person1.userGoldbook[person1.yearSelected].length !== 0 && person2.userGoldbook[person2.yearSelected].length !== 0){
       let p1Count = 0;
       let p2Count = 0;
-      if(person1.gamesThisYear.length > person2.gamesThisYear.length){
+      if(person1.userGoldbook[person1.yearSelected].length > person2.userGoldbook[person2.yearSelected].length){
         
-        person1.gamesThisYear.forEach(element => {
+        person1.userGoldbook[person1.yearSelected].forEach(element => {
           if(element.percentComp === 100)
             p1Count++
         });
 
-        person2.gamesThisYear.forEach(element => {
+        person2.userGoldbook[person2.yearSelected].forEach(element => {
           if(element.percentComp === 100)
             p2Count++
         });
@@ -196,13 +147,13 @@ export class ListUserComponent{
         else {
           return -1;
         }
-    } else if(person1.gamesThisYear.length < person2.gamesThisYear.length){
-        person1.gamesThisYear.forEach(element => {
+    } else if(person1.userGoldbook[person1.yearSelected].length < person2.userGoldbook[person2.yearSelected].length){
+        person1.userGoldbook[person1.yearSelected].forEach(element => {
           if(element.percentComp === 100)
             p1Count++
         });
 
-        person2.gamesThisYear.forEach(element => {
+        person2.userGoldbook[person2.yearSelected].forEach(element => {
           if(element.percentComp === 100)
             p2Count++
         });
@@ -215,12 +166,12 @@ export class ListUserComponent{
           return 1;
         }
     } else {
-      person1.gamesThisYear.forEach(element => {
+      person1.userGoldbook[person1.yearSelected].forEach(element => {
         if(element.percentComp === 100)
           p1Count++
       });
 
-      person2.gamesThisYear.forEach(element => {
+      person2.userGoldbook[person2.yearSelected].forEach(element => {
         if(element.percentComp === 100)
           p2Count++
       });
@@ -235,64 +186,77 @@ export class ListUserComponent{
     }
 
     
-  }
+  }}
 
-}
-
-customGameComparator(game1, game2) {
-  if(game1 && !game2){
-    return 1;
-  }
-
-  if(!game1 && game2){
-    return -1;
-  }
-
-  if(!game1 && !game2){
-    return 0;
-  }
-
-  if(game1 && game2){
-    if(game1.percentComp > game2.percentComp){
+  customGameComparator(game1, game2) {
+    if(game1 && !game2){
       return 1;
     }
-
-    if(game1.percentComp < game2.percentComp){
+  
+    if(!game1 && game2){
       return -1;
     }
-
-    if(game1.percentComp === game2.percentComp){
-      if(game1.hours && !game2.hours){
+  
+    if(!game1 && !game2){
+      return 0;
+    }
+  
+    if(game1 && game2){
+      if(game1.percentComp > game2.percentComp){
         return 1;
       }
-
-      if(!game1.hours && game2.hours){
+  
+      if(game1.percentComp < game2.percentComp){
         return -1;
       }
-
-      if(game1.hours && game2.hours){
-        if(game1.hours > game2.hours){
+  
+      if(game1.percentComp === game2.percentComp){
+        if(game1.hours && !game2.hours){
           return 1;
         }
-
-        if(game1.hours < game2.hours){
+  
+        if(!game1.hours && game2.hours){
           return -1;
         }
-
-        if(game1.hours === game2.hours){
+  
+        if(game1.hours && game2.hours){
+          if(game1.hours > game2.hours){
+            return 1;
+          }
+  
+          if(game1.hours < game2.hours){
+            return -1;
+          }
+  
+          if(game1.hours === game2.hours){
+            return 0;
+          }
+        }
+  
+        if(!game1.hours && !game2.hours){
           return 0;
         }
       }
-
-      if(!game1.hours && !game2.hours){
-        return 0;
-      }
     }
   }
-}
+
+  private calculateYears(){
+    const beginning = new Date('2020-01-01');
+    const today = new Date();
+    const yearsBetween = today.getFullYear() - beginning.getFullYear();
+    if(yearsBetween > 0){
+      let i = 1;
+      while(i <= yearsBetween){
+        this.listYear.push({code: (today.getFullYear() - i) + '_list', desc: today.getFullYear() - i});
+        i++;
+      }
+      this.yearSelected = this.listYear[0];
+    }
+    
+  }
 
   private getBadge(person):any{
-    const games = person.gamesThisYear;
+    const games = person.userGoldbook[this.yearSelected.code];
     let countNintendo = 0;
     let countXbox = 0;
     let countPc = 0;
@@ -331,6 +295,22 @@ customGameComparator(game1, game2) {
       return this.stereotype.ST;
   }
 
+  customComparatorScore(element1, element2){
+    if(element1[1] && !element2[1])
+      return 1;
+
+    if(!element1[1] && element2[1])
+      return -1;
+
+    if(element1[1] > element2[1])
+      return 1;
+    
+    if(element1[1] < element2[1])
+      return -1
+
+    return 0;
+  }
+
   showCommentDialog(gameName, index){
     this.modalIndex = index;
     this.modalGame = gameName;
@@ -342,4 +322,5 @@ customGameComparator(game1, game2) {
     this.modalDisplay = false;
     setTimeout(() => this.createModal = false, 760);
   }
+    
 }

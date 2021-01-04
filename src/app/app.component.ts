@@ -8,6 +8,8 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  thisYear: number;
   
   constructor(private router: Router, private cookieService: CookieService) {
     const cookieUserId = this.cookieService.get('userId');
@@ -20,6 +22,8 @@ export class AppComponent {
       this.router.navigateByUrl('/login');
     else
       this.router.navigateByUrl('/list');
+
+    this.thisYear = new Date().getFullYear();
   }
 
   notLogin() : boolean{
@@ -39,6 +43,10 @@ export class AppComponent {
 
   compare(){
     this.router.navigateByUrl('/compare');
+  }
+
+  goldBook(){
+    this.router.navigateByUrl('/goldbook');
   }
   
 }
