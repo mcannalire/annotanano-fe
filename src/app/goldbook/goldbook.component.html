@@ -4,7 +4,7 @@
           <div class="col-3"></div>
           <div class="col-12 row">
             <div class="col-6">
-              <div *ngIf="!mostraGrafico" style="text-align: left;">
+              <div style="text-align: left;">
                   Seleziona Anno:
                   <p-dropdown [options]="listYear" optionLabel="desc" [(ngModel)]="yearSelected" (onChange)="onYearSelected()"></p-dropdown>
               </div>

@@ -7,6 +7,7 @@ import { GamesService } from '../services/games.service';
   styleUrls: ['./goldbook.component.css']
 })
 export class GoldBookComponent {
+  ordering = '';
   createModal: boolean = false;
   modalGame: any = {};
   modalDisplay: boolean = false;
