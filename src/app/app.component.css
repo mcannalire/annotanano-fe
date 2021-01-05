@@ -41,3 +41,34 @@
     color: goldenrod;
     background-color: honeydew;
 }
+
+.side-menu {
+    width: 130px;
+    position: fixed;
+    z-index: 1;
+    left: 10px;
+    background: dimgray;
+    overflow-x: hidden;
+    border: white;
+    padding: 8px 0;
+    top: 30%
+}
+
+.side-menu a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    color: white;
+    display: block;
+  }
+  
+  .side-menu a:hover {
+    color: goldenrod;
+    background-color: honeydew;
+    cursor: pointer;
+  }
+
+  .border-img {
+      position: fixed;
+      top:0;
+      transform: scaleX(-1);
+  }

@@ -32,6 +32,10 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RatingModule } from 'primeng/rating';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { MovieEditComponent } from './movies-edit/movie-edit.component';
+import { MovieListComponent } from './movies-list/movie-list.component';
+import { SeriesListComponent } from './series-list/series-list.component';
+import { SeriesEditComponent } from './series-edit/series-edit.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,11 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
     LoginComponent,
     LoaderComponent,
     CompareComponent,
-    GoldBookComponent
+    GoldBookComponent,
+    MovieEditComponent,
+    MovieListComponent,
+    SeriesListComponent,
+    SeriesEditComponent
   ],
   imports: [
     BrowserModule, 

@@ -1,0 +1,133 @@
+<div class="container" style="padding-top: 70px;">
+    <div class="row" class="gamer-box">
+        <div class="col-12 col-xs-12 grid-edit">
+            <span class="ui-float-label"> 
+                <input type="text" [(ngModel)]="person.name" pInputText>
+                <label for="float-input">Nome</label>
+            </span>
+        </div>
+        <div class="col-12 col-xs-12 row grid-edit">
+            <div class="col-3 col-xs-3">
+                <img class="avatar-img" src="{{person.avatarUrl}}">
+            </div>
+            <div class="col-9 col-xs-9">
+                <span class="ui-float-label"> 
+                    <input type="text" [(ngModel)]="person.avatarUrl" pInputText style="width: 55%;">
+                    <label for="float-input">Url Immagine Avatar</label>
+                </span>
+            </div>
+        </div>
+        <div class="col-12 col-xs-12 grid-edit">
+            <p-button label="Aggiungi Serie" (onClick)="addSeries()" *ngIf="!aggiungiSeries"></p-button>
+            <div class="row" *ngIf="aggiungiSeries">
+                <div class="col-2 col-xs-2" *ngIf="newSeries.modifica">
+                    <img class="platform-img" src="{{logos[newSeries.platform]}}">
+                  </div>
+                  <div class="col-3 col-xs-2" *ngIf="!newSeries.modifica">
+                      <p-dropdown [options]="platforms" optionLabel="name" placeholder="Seleziona piattaforma" (onChange)="newSeries.platform = selectedItem.value" [(ngModel)]="selectedItem"></p-dropdown>
+                  </div>
+                <div class="col-3 col-xs-3">
+                    <span class="ui-float-label">
+                        <input type="text" [(ngModel)]="newSeries.name" pInputText>
+                        <label for="float-input">Inserisci Nome Serie</label>
+                    </span>
+                </div>
+                <div class="col-6" style="display: inherit;">
+                    <span style="margin-right: 15px; font-weight: bolder;">Valutazione:</span>
+                    <p-rating [cancel]="false" [(ngModel)]="newSeries.rating"></p-rating>
+                </div>
+            </div>
+            <div class="col-12 col-xs-12" style="margin-top: 10px;">
+                <p-button label="Aggiungi" (onClick)="saveSeries()" *ngIf="aggiungiSeries" [disabled]="!newSeries.name || newSeries.name.length === 0"></p-button>
+            </div>
+        </div>
+
+        <div class="col-12 col-xs-12 grid-edit" *ngIf="!person.seriesThisYear">
+            <span>Non hai ancora inserito nessuna serie, clicca sul pulsante Aggiungi Serie</span>
+        </div>
+        <div class="col-12 col-xs-12 grid-edit" *ngIf="person.seriesThisYear">
+            <div class="row" *ngFor="let series of person.seriesThisYear; index as i">
+                <div class="games-box col-12 row">
+                    <div class="col-2 col-xs-2" *ngIf="series.modifica">
+                        <img class="platform-img" src="{{logos[series.platform]}}" style="width: 150px; height: 60px;">
+                      </div>
+                      <div class="col-3 col-xs-2" *ngIf="!series.modifica">
+                          <p-dropdown [options]="platforms" optionLabel="name" placeholder="Seleziona piattaforma" (onChange)="series.platform = selectedItem.value" [(ngModel)]="selectedItem"></p-dropdown>
+                      </div>
+                    <div class="col-4 col-xs-6 grid-cell" *ngIf="series.modifica" style="top: -5px;">
+                        <span>{{series.name}}</span>
+                    </div>
+                    <div class="col-3 col-xs-6" *ngIf="!series.modifica">
+                        <span class="ui-float-label">
+                            <input type="text" [(ngModel)]="series.name" pInputText>
+                            <label for="float-input">Inserisci Nome</label>
+                        </span>
+                    </div>
+                    <div class="col-3" style="display: inherit;" *ngIf="!series.modifica">
+                        <span style="margin-right: 15px; font-weight: bolder;">Valutazione:</span>
+                        <p-rating [cancel]="false" [(ngModel)]="series.rating"></p-rating>
+                    </div>
+                    <div class="col-3" style="display: inherit;" *ngIf="series.modifica" style="top: 13px;">
+                        <p-rating [cancel]="false" [(ngModel)]="series.rating" [readonly]="true"></p-rating>
+                    </div>
+                    <div class="col-1 col-xs-6" *ngIf="series.modifica" style="cursor: pointer;top:12px;">
+                        <img class="comment-img" (click)="showCommentDialog(series, i)" src="assets/img/comment.png" *ngIf="!series.comment" pTooltip="{{'Inserisci commento per ' + series.name}}" tooltipPosition="top">
+                        <img class="comment-img" (click)="showCommentDialog(series, i)" src="assets/img/comment.png" *ngIf="series.comment" pTooltip="{{'Modifica commento per ' + series.name}}" tooltipPosition="top">
+                    </div>
+                    <div class="col-1 col-xs-1" *ngIf="series.modifica" style="top: 13px;">
+                        <p-button styleClass="ui-button-info" icon="fa fa-check" icon="faPencilAlt" (onClick)="modificaSeries(series)" *ngIf="series.modifica">
+                            <fa-icon [icon]="faPencilAlt"></fa-icon>
+                        </p-button>
+                    </div>
+                    <div class="col-1 col-xs-6" *ngIf="!series.modifica" style="cursor: pointer;">
+                    </div>
+                    <div class="col-1 col-xs-1" *ngIf="!series.modifica" style="top: 13px;">
+                        <p-button styleClass="ui-button-info" icon="faPencilAlt" (onClick)="annullaModificaSeries(series)" *ngIf="!series.modifica">
+                            <fa-icon [icon]="faCheck"></fa-icon>
+                        </p-button>
+                    </div>
+                    <div class="col-1 col-xs-1" style="top: 13px;">
+                        <p-button styleClass="ui-button-info" icon="faPencilAlt" (onClick)="eliminaSeries(i)">
+                            <fa-icon [icon]="faTrash"></fa-icon>
+                        </p-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-11 col-xs-11"></div>
+            <div class="col-1 col-xs-1">
+                <p-button label="Salva" (onClick)="saveProfile()"></p-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="{{modalGame.name}}" [(visible)]="modalDisplay" [modal]="true" *ngIf="createModal" (onHide)="digestClose()">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 grid-modal">
+                <span class="ui-float-label"> 
+                    <input type="text" [(ngModel)]="modalGame.url" pInputText class="logo-input-modal">
+                    <label for="float-input">Inserisci URL immagine della serie TV</label>
+                </span>
+            </div>
+            <div class="col-12 grid-modal" style="text-align: center;" *ngIf="modalGame.url">
+                <img class="img-modal" src="{{modalGame.url}}">
+            </div>
+            <div class="col-12 grid-modal" style="text-align: center;" *ngIf="!modalGame.url">
+                <img class="img-modal" src="assets/img/no_game_img.png">
+            </div>
+            <div class="col-12 grid-modal ">
+                <span class="ui-float-label"> 
+                    <textarea class="text-area-modal" pInputTextarea [(ngModel)]="modalGame.comment"></textarea>
+                    <label for="float-input">Inserisci commento alla serie TV</label>
+                </span>
+            </div>
+            <div class="col-12 grid-modal">
+                <p-button label="Salva" (onClick)="saveSeriesInfo()" [disabled]="!modalGame.comment"></p-button>
+                <div style="text-align: right; color: green; font-weight: bolder;" *ngIf="!modalGame.comment">Per salvare devi inserire un commento</div>
+            </div>
+        </div>
+    </div>
+</p-dialog>

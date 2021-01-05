@@ -10,9 +10,22 @@ import { CookieService } from 'ngx-cookie-service';
 export class AppComponent {
 
   thisYear: number;
+  mode: string;
+  modalDisplay: boolean;
+  mSelectorGame: boolean;
+  mSelectorMovie: boolean;
+  mSelectorSeries: boolean;
+  mSelectorKnowHow: boolean;
+  
   
   constructor(private router: Router, private cookieService: CookieService) {
+    this.mode = 'game';
+    this.modalDisplay = false;
     const cookieUserId = this.cookieService.get('userId');
+    this.mSelectorGame = false;
+    this.mSelectorMovie = false;
+    this.mSelectorSeries = false;
+    this.mSelectorKnowHow = false;
 
     if(cookieUserId && cookieUserId.length > 0 && cookieUserId !== 'null'){
       sessionStorage.setItem('userId', cookieUserId);
@@ -47,6 +60,51 @@ export class AppComponent {
 
   goldBook(){
     this.router.navigateByUrl('/goldbook');
+  }
+
+  editMovie(){
+    this.router.navigateByUrl('/movie-edit');
+  }
+
+  listMovie(){
+    this.router.navigateByUrl('/movie-list');
+  }
+
+  goldBookMovie(){
+    this.router.navigateByUrl('/movie-goldbook');
+  }
+
+  editSeries(){
+    this.router.navigateByUrl('/series-edit');
+  }
+
+  listSeries(){
+    this.router.navigateByUrl('/series-list');
+  }
+
+  goldBookSeries(){
+    this.router.navigateByUrl('/series-goldbook');
+  }
+
+  sessionClicked(mod){
+    this.mode = mod;
+
+    if(this.mode === 'movie'){
+      this.router.navigateByUrl('/movie-edit');
+    }
+
+    if(this.mode === 'game'){
+      this.router.navigateByUrl('/list');
+    }
+
+    if(this.mode === 'series'){
+      this.router.navigateByUrl('/series-edit');
+    }
+    
+  }
+
+  showModal(){
+    this.modalDisplay = true;
   }
   
 }

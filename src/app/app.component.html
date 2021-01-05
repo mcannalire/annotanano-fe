@@ -1,4 +1,31 @@
-<div class="container header-class" *ngIf="notLogin()">
+<div class="side-menu" *ngIf="notLogin()">
+    <div>
+        <a (click)="sessionClicked('game')" (mouseenter)="mSelectorGame = true" (mouseleave)="mSelectorGame = false">Giochi</a>
+        <div class="border-img" *ngIf="mSelectorGame" style="top:30%; left:5%;z-index: 9;">
+            <img src="assets/img/ms.gif" style="width: 90px">
+        </div>
+    </div>
+    <div>
+        <a (click)="sessionClicked('movie')" (mouseenter)="mSelectorMovie = true" (mouseleave)="mSelectorMovie = false">Film</a>
+        <div class="border-img" *ngIf="mSelectorMovie"  style="top:30%; left:5%;z-index: 9;padding-top: 36px;">
+            <img src="assets/img/ms.gif" style="width: 90px">
+        </div>
+    </div>
+    <div>
+        <a (click)="sessionClicked('series')" (mouseenter)="mSelectorSeries = true" (mouseleave)="mSelectorSeries = false">Serie TV</a>
+        <div class="border-img" *ngIf="mSelectorSeries" style="top:30%; left:5%;z-index: 9;padding-top: 72px;">
+            <img src="assets/img/ms.gif" style="width: 90px" >
+        </div>
+    </div>
+    <div>
+        <a (click)="showModal()" (mouseenter)="mSelectorKnowHow = true" (mouseleave)="mSelectorKnowHow = false">Devi Sapere</a>
+        <div class="border-img" *ngIf="mSelectorKnowHow" style="top:30%; left:5%;z-index: 9;padding-top: 108px;">
+            <img src="assets/img/ms.gif" style="width: 90px" >
+        </div>
+    </div>
+</div>
+
+<div class="container header-class" *ngIf="notLogin() && mode === 'game'">
     <div class="row" style="height: inherit;">
         <div (click)="edit()" class="col-3 voice-class">
             <div>Modifica Utente</div>
@@ -12,6 +39,34 @@
         <div (click)="goldBook()" class="col-3 voice-class">
             <div>Storico</div>
         </div>
+    </div>
+</div> 
+
+<div class="container header-class" *ngIf="notLogin() && mode === 'movie'">
+    <div class="row" style="height: inherit;">
+        <div (click)="editMovie()" class="col-6 voice-class">
+            <div>Modifica Lista Film</div>
+        </div>
+        <div (click)="listMovie()" class="col-6 voice-class">
+            <div>Lista Film</div>
+        </div>
+        <!--<div (click)="goldBookMovie()" class="col-4 voice-class">
+            <div>Storico</div>
+        </div>-->
+    </div>
+</div> 
+
+<div class="container header-class" *ngIf="notLogin() && mode === 'series'">
+    <div class="row" style="height: inherit;">
+        <div (click)="editSeries()" class="col-6 voice-class">
+            <div>Modifica Lista Serie TV</div>
+        </div>
+        <div (click)="listSeries()" class="col-6 voice-class">
+            <div>Lista Serie TV</div>
+        </div>
+        <!--<div (click)="goldBookSeries()" class="col-4 voice-class">
+            <div>Storico</div>
+        </div>-->
     </div>
 </div> 
 <annotanano-loader></annotanano-loader>
@@ -29,4 +84,25 @@
             </div>
        </div>
     </div>
-</div> 
+</div>
+
+
+
+<p-dialog header="Devi Sapere" [(visible)]="modalDisplay" [modal]="true">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 grid-modal">
+              <ul>
+                <li>Si "vince" solo con la sezione giochi, le altre sezioni sono per DB personale.</li>
+                <li>Si caricano solo giochi con componente single player e dalla durata della campagna maggiore uguale di 5 ore. </li>
+                <li>Le collection di giochi vanno inserite come tali (c'è l'opzione apposita nell'inserimento), non è corretto mettere N giochi appartenenti alla collection separatamente, in tal caso verranno brutalmente eliminate.</li>
+                <li>Lo storico delle altre sezioni all'infuori dei giochi verrà inserita alla fine 2021, se ho voglia</li>
+                <li>Per favore metti un avatar che non rompi la grafica del sito, non ho voglia di sistemarla</li>
+                <li>Non ci sarà mai una versione mobile, la grafica sarà sempre rotta. Troppa fatica rifarla.</li>
+                <li>Non ci sperare troppo ma potrei prevedere dei premi per la vincita a fine anno, in tal caso manda una mail a lokad90@gmail.com con l'indirizzo di spedizione, non si sa mai nella vita.</li>
+                <li>L'annotanano in principio doveva interfacciarsi con le varie piattaforme di gioco, ma solo STEAM ha le API esposte, gli altri stanno negli anni 90 ancora. Questo per verificare che quello che state segnando qui corrisponda a verità, purtroppo bisogna ancora basarsi sulla fiducia.</li>
+              </ul>
+            </div>
+        </div>
+    </div>
+</p-dialog>

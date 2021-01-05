@@ -1,0 +1,54 @@
+<div class="container" style="padding-top: 70px;">
+    <div #googleChartId class="col-12" *ngFor="let i = index;let person of listPerson | orderBy:ordering:false:false:customComparator">
+        <div class="gamer-box">
+        
+            <div class="avatar-box col-12 row">
+                <div class="col-2">
+                    <img class="crown-img" src="assets/img/crown.png" *ngIf="i === 0"> 
+                    <img class="avatar-img" *ngIf="person.avatarUrl"  src="{{person.avatarUrl}}">
+                    <img class="avatar-img" *ngIf="!person.avatarUrl"  src="assets/img/derp.jpg">
+                </div>
+                <div class="col-10">
+                    <span class="person-name">{{person.name}}</span>
+                </div>
+            </div>
+            <div class="col-12">
+                <div *ngFor="let series of person.seriesThisYear | orderBy:ordering:true:false" class="row games-grid">
+                    <div class="games-box col-12 row">
+                        <div class="col-2">
+                            <img class="platform-img" src="{{logos[series.platform]}}" style="width: 150px; height: 60px;">
+                        </div>
+                        <div class="col-4 grid-cell" style="top: -5px;">{{series.name}}</div>
+                        <!--<div class="col-2 grid-cell-status">{{game.status === 0 ? 'In corso' : 'Completato'}}</div>-->
+                        <div class="col-3" style="display: inherit;" style="top: 13px;">
+                            <p-rating [cancel]="false" [(ngModel)]="series.rating" [readonly]="true"></p-rating>
+                        </div>
+                        <div class="col-1" style="cursor: pointer;" >
+                            <img class="comment-img" src="assets/img/comment.png" *ngIf="series.comment" pTooltip="{{person.name + ' ha inserito un commento per ' + series.name + '. Clicca per leggerlo'}}" tooltipPosition="top" (click)="showCommentDialog(series, i)">
+                        </div>
+                        <div class="col-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<p-dialog header="{{modalGame.name}}" [(visible)]="modalDisplay" [modal]="true" *ngIf="createModal" (onHide)="digestClose()">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 grid-modal" style="text-align: center;" *ngIf="modalGame.url">
+                <img class="img-modal" src="{{modalGame.url}}">
+            </div>
+            <div class="col-12 grid-modal" style="text-align: center;" *ngIf="!modalGame.url">
+                <img class="img-modal" src="assets/img/no_game_img.png">
+            </div>
+            <div class="col-12 grid-modal ">
+                <!--<span class="comment-label">Commento:</span>-->
+                <span class="comment-desc">{{modalGame.comment}}</span>
+            </div>
+        </div>
+    </div>
+</p-dialog>

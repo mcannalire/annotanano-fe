@@ -1,0 +1,133 @@
+<div class="container" style="padding-top: 70px;">
+    <div class="row" class="gamer-box">
+        <div class="col-12 col-xs-12 grid-edit">
+            <span class="ui-float-label"> 
+                <input type="text" [(ngModel)]="person.name" pInputText>
+                <label for="float-input">Nome</label>
+            </span>
+        </div>
+        <div class="col-12 col-xs-12 row grid-edit">
+            <div class="col-3 col-xs-3">
+                <img class="avatar-img" src="{{person.avatarUrl}}">
+            </div>
+            <div class="col-9 col-xs-9">
+                <span class="ui-float-label"> 
+                    <input type="text" [(ngModel)]="person.avatarUrl" pInputText style="width: 55%;">
+                    <label for="float-input">Url Immagine Avatar</label>
+                </span>
+            </div>
+        </div>
+        <div class="col-12 col-xs-12 grid-edit">
+            <p-button label="Aggiungi Film" (onClick)="addMovie()" *ngIf="!aggiungiFilm"></p-button>
+            <div class="row" *ngIf="aggiungiFilm">
+                <div class="col-2 col-xs-2" *ngIf="newMovie.modifica">
+                    <img class="platform-img" src="{{logos[newMovie.platform]}}">
+                  </div>
+                  <div class="col-3 col-xs-2" *ngIf="!newMovie.modifica">
+                      <p-dropdown [options]="platforms" optionLabel="name" placeholder="Seleziona piattaforma" (onChange)="newMovie.platform = selectedItem.value" [(ngModel)]="selectedItem"></p-dropdown>
+                  </div>
+                <div class="col-3 col-xs-3">
+                    <span class="ui-float-label">
+                        <input type="text" [(ngModel)]="newMovie.name" pInputText>
+                        <label for="float-input">Inserisci Nome Film</label>
+                    </span>
+                </div>
+                <div class="col-6" style="display: inherit;">
+                    <span style="margin-right: 15px; font-weight: bolder;">Valutazione:</span>
+                    <p-rating [cancel]="false" [(ngModel)]="newMovie.rating"></p-rating>
+                </div>
+            </div>
+            <div class="col-12 col-xs-12" style="margin-top: 10px;">
+                <p-button label="Aggiungi" (onClick)="saveMovie()" *ngIf="aggiungiFilm" [disabled]="!newMovie.name || newMovie.name.length === 0"></p-button>
+            </div>
+        </div>
+
+        <div class="col-12 col-xs-12 grid-edit" *ngIf="!person.moviesThisYear">
+            <span>Non hai ancora inserito nessun film, clicca sul pulsante Aggiungi Film</span>
+        </div>
+        <div class="col-12 col-xs-12 grid-edit" *ngIf="person.moviesThisYear">
+            <div class="row" *ngFor="let movie of person.moviesThisYear; index as i">
+                <div class="games-box col-12 row">
+                    <div class="col-2 col-xs-2" *ngIf="movie.modifica">
+                        <img class="platform-img" src="{{logos[movie.platform]}}" style="width: 150px; height: 60px;">
+                      </div>
+                      <div class="col-3 col-xs-2" *ngIf="!movie.modifica">
+                          <p-dropdown [options]="platforms" optionLabel="name" placeholder="Seleziona piattaforma" (onChange)="movie.platform = selectedItem.value" [(ngModel)]="selectedItem"></p-dropdown>
+                      </div>
+                    <div class="col-4 col-xs-6 grid-cell" *ngIf="movie.modifica" style="top: -5px;">
+                        <span>{{movie.name}}</span>
+                    </div>
+                    <div class="col-3 col-xs-6" *ngIf="!movie.modifica">
+                        <span class="ui-float-label">
+                            <input type="text" [(ngModel)]="movie.name" pInputText>
+                            <label for="float-input">Inserisci Nome</label>
+                        </span>
+                    </div>
+                    <div class="col-3" style="display: inherit;" *ngIf="!movie.modifica">
+                        <span style="margin-right: 15px; font-weight: bolder;">Valutazione:</span>
+                        <p-rating [cancel]="false" [(ngModel)]="movie.rating"></p-rating>
+                    </div>
+                    <div class="col-3" style="display: inherit;" *ngIf="movie.modifica" style="top: 13px;">
+                        <p-rating [cancel]="false" [(ngModel)]="movie.rating" [readonly]="true"></p-rating>
+                    </div>
+                    <div class="col-1 col-xs-6" *ngIf="movie.modifica" style="cursor: pointer;top:12px;">
+                        <img class="comment-img" (click)="showCommentDialog(movie, i)" src="assets/img/comment.png" *ngIf="!movie.comment" pTooltip="{{'Inserisci commento per ' + movie.name}}" tooltipPosition="top">
+                        <img class="comment-img" (click)="showCommentDialog(movie, i)" src="assets/img/comment.png" *ngIf="movie.comment" pTooltip="{{'Modifica commento per ' + movie.name}}" tooltipPosition="top">
+                    </div>
+                    <div class="col-1 col-xs-1" *ngIf="movie.modifica" style="top: 13px;">
+                        <p-button styleClass="ui-button-info" icon="fa fa-check" icon="faPencilAlt" (onClick)="modificaFilm(movie)" *ngIf="movie.modifica">
+                            <fa-icon [icon]="faPencilAlt"></fa-icon>
+                        </p-button>
+                    </div>
+                    <div class="col-1 col-xs-6" *ngIf="!movie.modifica" style="cursor: pointer;">
+                    </div>
+                    <div class="col-1 col-xs-1" *ngIf="!movie.modifica" style="top: 13px;">
+                        <p-button styleClass="ui-button-info" icon="faPencilAlt" (onClick)="annullaModificaFilm(movie)" *ngIf="!movie.modifica">
+                            <fa-icon [icon]="faCheck"></fa-icon>
+                        </p-button>
+                    </div>
+                    <div class="col-1 col-xs-1" style="top: 13px;">
+                        <p-button styleClass="ui-button-info" icon="faPencilAlt" (onClick)="eliminaFilm(i)">
+                            <fa-icon [icon]="faTrash"></fa-icon>
+                        </p-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-11 col-xs-11"></div>
+            <div class="col-1 col-xs-1">
+                <p-button label="Salva" (onClick)="saveProfile()"></p-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="{{modalGame.name}}" [(visible)]="modalDisplay" [modal]="true" *ngIf="createModal" (onHide)="digestClose()">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 grid-modal">
+                <span class="ui-float-label"> 
+                    <input type="text" [(ngModel)]="modalGame.url" pInputText class="logo-input-modal">
+                    <label for="float-input">Inserisci URL immagine del film</label>
+                </span>
+            </div>
+            <div class="col-12 grid-modal" style="text-align: center;" *ngIf="modalGame.url">
+                <img class="img-modal" src="{{modalGame.url}}">
+            </div>
+            <div class="col-12 grid-modal" style="text-align: center;" *ngIf="!modalGame.url">
+                <img class="img-modal" src="assets/img/no_game_img.png">
+            </div>
+            <div class="col-12 grid-modal ">
+                <span class="ui-float-label"> 
+                    <textarea class="text-area-modal" pInputTextarea [(ngModel)]="modalGame.comment"></textarea>
+                    <label for="float-input">Inserisci commento al film</label>
+                </span>
+            </div>
+            <div class="col-12 grid-modal">
+                <p-button label="Salva" (onClick)="saveMovieInfo()" [disabled]="!modalGame.comment"></p-button>
+                <div style="text-align: right; color: green; font-weight: bolder;" *ngIf="!modalGame.comment">Per salvare devi inserire un commento</div>
+            </div>
+        </div>
+    </div>
+</p-dialog>
