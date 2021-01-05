@@ -14,6 +14,7 @@ import { delay } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class SeriesListComponent {
+  ordering = '';
   listPerson = [];
   modalGame: any = {};
   modalIndex: number;
