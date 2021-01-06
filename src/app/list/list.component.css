@@ -65,6 +65,8 @@
   max-width: 100px;
   max-height: 100px;
   padding-right: 15px;
+  width: 100px;
+  height: 50px;
 }
 
 .gamer-box {
@@ -83,7 +85,7 @@
 }
 
 .grid-cell {
-  padding-top: 20px;
+  padding-top: 12px;
   font-weight: 600;
 }
 

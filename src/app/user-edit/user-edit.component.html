@@ -115,7 +115,7 @@
                     <div class="col-5 col-xs-6 grid-cell" *ngIf="game.modifica" [ngStyle]="{'font-family': fonts[game.platform]}">
                         <span>{{game.name}}</span>
                     </div>
-                    <div class="col-1 col-xs-6" *ngIf="game.modifica" style="cursor: pointer;">
+                    <div class="col-1 col-xs-6" *ngIf="game.modifica" style="cursor: pointer;padding-top:11px;">
                         <img class="comment-img" (click)="showCommentDialog(game, i)" src="assets/img/comment.png" *ngIf="!game.comment" pTooltip="{{'Inserisci commento per ' + game.name}}" tooltipPosition="top">
                         <img class="comment-img" (click)="showCommentDialog(game, i)" src="assets/img/comment.png" *ngIf="game.comment" pTooltip="{{'Modifica commento per ' + game.name}}" tooltipPosition="top">
                     </div>
@@ -126,7 +126,7 @@
                         </span>
                     </div>
                     <!--<div class="col-2 grid-cell-status">{{game.status === 0 ? 'In corso' : 'Completato'}}</div>-->
-                    <div class="col-2 col-xs-2" *ngIf="game.modifica">
+                    <div class="col-2 col-xs-2" *ngIf="game.modifica" style="padding-top: 15px;">
                       <div>
                         <!--<div class="progress-bar" [ngStyle]="{'width': game.percentComp + '%'}">{{game.percentComp}}%</div>-->
                         <p-progressBar [value]="game.percentComp"></p-progressBar>
@@ -136,17 +136,17 @@
                         <span>{{game.percentComp}}%</span>
                         <p-slider [(ngModel)]="game.percentComp" min="1" max="100" step="1"></p-slider>
                     </div>
-                    <div class="col-1 col-xs-1" *ngIf="game.modifica">
+                    <div class="col-1 col-xs-1" *ngIf="game.modifica" style="padding-top: 13px;">
                         <p-button styleClass="ui-button-info" icon="fa fa-check" icon="faPencilAlt" (onClick)="modificaGioco(game)" *ngIf="game.modifica">
                             <fa-icon [icon]="faPencilAlt"></fa-icon>
                         </p-button>
                     </div>
-                    <div class="col-1 col-xs-1" *ngIf="!game.modifica">
+                    <div class="col-1 col-xs-1" *ngIf="!game.modifica" style="padding-top: 13px;">
                         <p-button styleClass="ui-button-info" icon="faPencilAlt" (onClick)="annullaModificaGioco(game)" *ngIf="!game.modifica">
                             <fa-icon [icon]="faCheck"></fa-icon>
                         </p-button>
                     </div>
-                    <div class="col-1 col-xs-1">
+                    <div class="col-1 col-xs-1" style="padding-top: 13px;">
                         <p-button styleClass="ui-button-info" icon="faPencilAlt" (onClick)="eliminaGioco(i)">
                             <fa-icon [icon]="faTrash"></fa-icon>
                         </p-button>
