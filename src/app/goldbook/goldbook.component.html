@@ -11,8 +11,7 @@
             </div>
             <div class="col-3"></div>
             <div class="col-3">
-            </div>
-            <div class="col-3">
+              <p-checkbox binary="true" [(ngModel)]="goty" label="Mostra i GOTY"></p-checkbox>
             </div>
           </div>
         </div>
@@ -35,7 +34,7 @@
               </div>
               <div class="col-12">
                 <div *ngFor="let game of person.userGoldbook[yearSelected.code] | orderBy:ordering:true:false:customGameComparator" class="row games-grid">
-                  <div class="games-box col-12 row" *ngIf="!giochiCompleti || (giochiCompleti && game.percentComp === 100)">
+                  <div class="games-box col-12 row" *ngIf="!goty || (goty && game.rating === 5)">
                     <div class="col-2">
                       <img *ngIf="game.collection && game.collection.length > 0 && !game.explode" pTooltip="{{game.name + ' è una collection. Clicca qui per vederne la composizione'}}" class="plus-img" src="assets/img/plus.png" (click)="game.explode = !game.explode">
                         <img *ngIf="game.collection && game.collection.length > 0 && game.explode" pTooltip="Clicca qui per minimizzare" class="plus-img" src="assets/img/minus.png" (click)="game.explode = !game.explode">

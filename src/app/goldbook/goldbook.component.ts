@@ -12,6 +12,7 @@ export class GoldBookComponent {
   modalGame: any = {};
   modalDisplay: boolean = false;
   modalIndex: number;
+  goty: boolean = false;
 
   fonts = {
     PC: 'windows',
