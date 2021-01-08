@@ -55,10 +55,10 @@ export class MovieListComponent {
     if(person1.moviesThisYear.length === 0 && person2.moviesThisYear.length !== 0)
       return 1;
 
-    if(person1.moviesThisYear.length > person2.moviesThisYear.length)
+    if(person1.moviesThisYear.length < person2.moviesThisYear.length)
       return 1;
 
-    if(person1.moviesThisYear.length < person2.moviesThisYear.length)
+    if(person1.moviesThisYear.length > person2.moviesThisYear.length)
       return -1;
   }
 

@@ -55,10 +55,10 @@ export class SeriesListComponent {
     if(person1.seriesThisYear.length === 0 && person2.seriesThisYear.length !== 0)
       return 1;
 
-    if(person1.seriesThisYear.length > person2.seriesThisYear.length)
+    if(person1.seriesThisYear.length < person2.seriesThisYear.length)
       return 1;
 
-    if(person1.seriesThisYear.length < person2.seriesThisYear.length)
+    if(person1.seriesThisYear.length > person2.seriesThisYear.length)
       return -1;
   }
 
