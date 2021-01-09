@@ -105,6 +105,7 @@ export class UserEditComponent {
       this.newGame.percentComp = 1;
       //this.newGame.platform = this.platforms[0];
     }
+    
 
     saveGameToCollection(){
       if(!this.newGame.collection){
@@ -281,6 +282,35 @@ export class UserEditComponent {
       setTimeout(() => this.createModal = false, 760);
     }
 
+    onSelectionNew(event){
+      if(!this.newGame){
+        this.newGame = {};
+      }
+      this.newGame.name = event.query;
+    }
+
+    onSelection(event, game){
+      if(!game){
+        game = {};
+      }
+      game = event.query;
+    }
+
     
-    
+    selectedGame: any;
+
+    results: any;
+
+    search(event) {
+        this.gameService.getResults(event.query).subscribe(data => {
+            if(data && data['results'] && data['results'].length > 0){
+              /*data['results'].forEach(element => {
+                this.results.push(element.name);
+              });*/
+              this.results = data['results'];
+            }
+            
+        });
+    }
+
 }

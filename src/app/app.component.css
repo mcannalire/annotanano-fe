@@ -7,6 +7,12 @@
     z-index: 20
 }
 
+.annotanano-logo-class {
+    position:fixed;
+    top: 35%;
+    padding-left: 10px;
+}
+
 .footer-class {
     left: 50%;
     height: 50px;
@@ -43,14 +49,12 @@
 
 .side-menu {
     width: 130px;
-    position: fixed;
     z-index: 1;
     left: 10px;
     background: dimgray;
     overflow-x: hidden;
     border: white;
     padding: 8px 0;
-    top: 30%
 }
 
 .side-menu a {

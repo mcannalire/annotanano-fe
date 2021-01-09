@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthGuard } from './services/auth.guard';
 import { LoadingScreenInterceptor } from './interceptors/loading.interceptor';
 import { ProgressBarModule } from 'primeng/progressbar';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InputTextModule } from 'primeng/inputtext';
@@ -72,7 +73,8 @@ import { SeriesEditComponent } from './series-edit/series-edit.component';
     DialogModule,
     InputTextareaModule,
     RatingModule,
-    CardModule
+    CardModule,
+    AutoCompleteModule
   ],
   providers: [AuthGuard,
     {

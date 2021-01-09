@@ -1,26 +1,32 @@
-<div class="side-menu" *ngIf="notLogin()">
+
+<div *ngIf="notLogin()" class="annotanano-logo-class">
     <div>
-        <a (click)="sessionClicked('game')" (mouseenter)="mSelectorGame = true" (mouseleave)="mSelectorGame = false">Giochi</a>
-        <div class="border-img" *ngIf="mSelectorGame" style="top:30%; left:5%;z-index: 9;">
-            <img src="assets/img/ms.gif" style="width: 90px">
-        </div>
+        <img style="width:128px;height:41px;" src="assets/img/annotanano_logo.png">
     </div>
-    <div>
-        <a (click)="sessionClicked('movie')" (mouseenter)="mSelectorMovie = true" (mouseleave)="mSelectorMovie = false">Film</a>
-        <div class="border-img" *ngIf="mSelectorMovie"  style="top:30%; left:5%;z-index: 9;padding-top: 36px;">
-            <img src="assets/img/ms.gif" style="width: 90px">
+    <div class="side-menu">
+        <div>
+            <a (click)="sessionClicked('game')" (mouseenter)="mSelectorGame = true" (mouseleave)="mSelectorGame = false">Giochi</a>
+            <div class="border-img" *ngIf="mSelectorGame" style="top:35%; left:128px;z-index: 9;padding-top: 41px;">
+                <img src="assets/img/ms.gif" style="width: 90px">
+            </div>
         </div>
-    </div>
-    <div>
-        <a (click)="sessionClicked('series')" (mouseenter)="mSelectorSeries = true" (mouseleave)="mSelectorSeries = false">Serie TV</a>
-        <div class="border-img" *ngIf="mSelectorSeries" style="top:30%; left:5%;z-index: 9;padding-top: 72px;">
-            <img src="assets/img/ms.gif" style="width: 90px" >
+        <div>
+            <a (click)="sessionClicked('movie')" (mouseenter)="mSelectorMovie = true" (mouseleave)="mSelectorMovie = false">Film</a>
+            <div class="border-img" *ngIf="mSelectorMovie"  style="top:35%; left:128px;z-index: 9;padding-top: 77px;">
+                <img src="assets/img/ms.gif" style="width: 90px">
+            </div>
         </div>
-    </div>
-    <div>
-        <a (click)="showModal()" (mouseenter)="mSelectorKnowHow = true" (mouseleave)="mSelectorKnowHow = false">Devi Sapere</a>
-        <div class="border-img" *ngIf="mSelectorKnowHow" style="top:30%; left:5%;z-index: 9;padding-top: 108px;">
-            <img src="assets/img/ms.gif" style="width: 90px" >
+        <div>
+            <a (click)="sessionClicked('series')" (mouseenter)="mSelectorSeries = true" (mouseleave)="mSelectorSeries = false">Serie TV</a>
+            <div class="border-img" *ngIf="mSelectorSeries" style="top:35%; left:128px;z-index: 9;padding-top: 113px;">
+                <img src="assets/img/ms.gif" style="width: 90px" >
+            </div>
+        </div>
+        <div>
+            <a (click)="showModal()" (mouseenter)="mSelectorKnowHow = true" (mouseleave)="mSelectorKnowHow = false">Devi Sapere</a>
+            <div class="border-img" *ngIf="mSelectorKnowHow" style="top:35%; left:128px;z-index: 9;padding-top: 149px;">
+                <img src="assets/img/ms.gif" style="width: 90px" >
+            </div>
         </div>
     </div>
 </div>

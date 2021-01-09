@@ -48,4 +48,11 @@ export class GamesService {
         });
     }
 
+    getResults(query){
+        
+        return this.http.get('https://api.rawg.io/api/games?search='+encodeURIComponent(query), {
+            headers: {'accept': 'application/json'}
+        });
+    }
+
 }

@@ -25,6 +25,14 @@
                         <input type="text" [(ngModel)]="newGame.name" pInputText>
                         <label for="float-input">Inserisci Nome</label>
                     </span>
+                    
+                    <!--<span class="ui-float-label">
+                        <p-autoComplete inputId="autocomplete" (onSelect)="onSelection($event, newGame)" [(ngModel)]="selectedGame" [suggestions]="results" (completeMethod)="search($event)" [forceSelection]="true" [minLength]="3" [delay]="800" field="name">
+                        </p-autoComplete>
+                        <label for="autocomplete">Inserisci Nome</label>
+                    </span>-->
+                        
+                       
                 </div>
                 <div class="col-3 col-xs-3">
                     <p-dropdown [options]="platforms" (onChange)="newGame.platform = selectedItem.value" [(ngModel)]="selectedItem" optionLabel="name" placeholder="Seleziona piattaforma"></p-dropdown>
