@@ -53,7 +53,8 @@
                       <img *ngIf="game.collection && game.collection.length > 0 && game.explode" pTooltip="Clicca qui per minimizzare" class="plus-img" src="assets/img/minus.png" (click)="game.explode = !game.explode">
                     <img class="platform-img" src="{{logos[game.platform]}}" [ngStyle]="{'margin-left': game.collection && game.collection.length > 0 ? '0px' : '20px'}">
                   </div>
-                  <div class="col-7 grid-cell" [ngStyle]="{'font-family': fonts[game.platform]}">{{game.name}}</div>
+                  <div class="col-7 grid-cell" [ngStyle]="{'font-family': fonts[game.platform]}" style="cursor: pointer;" *ngIf="game.idGame" (click)="toGameDetail(game);"  pTooltip="{{'Clicca per vedere informazioni aggiuntive su ' + game.name}}" tooltipPosition="top">{{game.name}}</div>
+                  <div class="col-7 grid-cell" [ngStyle]="{'font-family': fonts[game.platform]}" *ngIf="!game.idGame">{{game.name}}</div>
                   <!--<div class="col-2 grid-cell-status">{{game.status === 0 ? 'In corso' : 'Completato'}}</div>-->
                   <div class="col-1" style="cursor: pointer;padding-top:11px;" (click)="showCommentDialog(game, i)">
                     <img class="comment-img" src="assets/img/comment.png" *ngIf="game.comment" pTooltip="{{person.name + ' ha inserito un commento per ' + game.name + '. Clicca per leggerlo'}}" tooltipPosition="top">

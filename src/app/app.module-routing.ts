@@ -11,6 +11,7 @@ import { MovieEditComponent } from './movies-edit/movie-edit.component';
 import { MovieListComponent } from './movies-list/movie-list.component';
 import { SeriesListComponent } from './series-list/series-list.component';
 import { SeriesEditComponent } from './series-edit/series-edit.component';
+import { GameDetailComponent } from './game-detail/game-detail.component';
 
 const appRoutes: Routes = [
   {
@@ -63,6 +64,12 @@ const appRoutes: Routes = [
     component: SeriesEditComponent,
     canActivate: [AuthGuard],
     data: { title: 'Annotanano Modifica Lista Serie TV' }
+  },
+  { 
+    path: 'game-detail',
+    component: GameDetailComponent,
+    canActivate: [AuthGuard],
+    data: { title: 'Annotanano Dettaglio Gioco' }
   }
 ];
 

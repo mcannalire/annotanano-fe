@@ -37,6 +37,7 @@ import { MovieEditComponent } from './movies-edit/movie-edit.component';
 import { MovieListComponent } from './movies-list/movie-list.component';
 import { SeriesListComponent } from './series-list/series-list.component';
 import { SeriesEditComponent } from './series-edit/series-edit.component';
+import { GameDetailComponent } from './game-detail/game-detail.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { SeriesEditComponent } from './series-edit/series-edit.component';
     MovieEditComponent,
     MovieListComponent,
     SeriesListComponent,
-    SeriesEditComponent
+    SeriesEditComponent,
+    GameDetailComponent
   ],
   imports: [
     BrowserModule, 

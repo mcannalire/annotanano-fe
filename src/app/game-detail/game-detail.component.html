@@ -1,0 +1,42 @@
+<div class="container" style="padding-top:70px">
+    <div class="row gamer-box">
+        <div class="col-12 row" style="padding-top:15px;">
+            <div class="col-3 detail-image">
+                <img width="200px" height="100px" src="{{gameDetail.background_image}}">
+            </div>
+            <div class="col-9 detail-title">
+                <span>{{gameDetail.name}}</span>
+            </div>
+        </div>
+        
+        <div class="col-12 row detail-trailer">
+            <!--<iframe [src]="getTrustedUrl()"></iframe>-->
+            <div class="detail-played-by col-3 row">
+                <div class="col-12">
+                    <span>Giocato da: </span>
+                    <div class="detail-user-grid row">
+                        <div *ngFor="let person of listPerson" class="col-4" style="padding-right: 10px;">
+                            <img src="{{person.avatarUrl}}" pTooltip="{{person.name}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12" *ngIf="gameDetail.metacritic">
+                    <span>Media Metacritic: </span>
+                    <span style="font-size: 1.4rem;
+                    font-weight: bolder;">{{gameDetail.metacritic}}</span>
+                </div>
+                <div class="col-12" *ngIf="mediaAnnotanano">
+                    <span>Media Annotanano: </span>
+                    <span style="font-size: 1.4rem;
+                    font-weight: bolder;">{{mediaAnnotanano}}</span>
+                </div>
+            </div>
+            <div *ngIf="isClip" class="col-9" style="text-align: right;">
+                <video [muted]="'muted'" autoplay id="video1"  class="img" controls>
+                    <!--<source src="{{getTrustedUrl()}}" type='video/mp4' />-->
+                    <source src="{{gameDetail.clip.clip}}" type='video/mp4' />
+                </video>
+            </div>
+        </div>
+    </div>
+</div>

@@ -49,6 +49,34 @@ export class UserEditComponent {
     XX: 'assets/img/xx.jpg',
     ST: 'assets/img/stadia.jpg'
   }
+
+  mapping_platform_slug = {
+    'nintendo-switch': {
+      name: 'Nintendo Switch',
+      value: 'NS'
+    },
+    'playstation4': {
+      name: 'Playstation 4',
+      value:'PS'
+    },
+    'playstation5': {
+      name: 'Playstation 5',
+      value: 'P5'
+    },
+    'pc': {
+      name: 'Personal Computer',
+      value: 'PC'
+    }, 
+    'xbox-one': { 
+      name: 'Xbox ONE',
+      value:'XB'
+    }, 
+    'xbox-series-x': {
+      name: 'Xbox Series X|S',
+      value: 'XX'
+    }
+    
+  }
   
     platforms = [
     {
@@ -103,6 +131,7 @@ export class UserEditComponent {
       this.aggiungiGioco = true;
       this.newGame = {};
       this.newGame.percentComp = 1;
+      this.selectedGame = null;
       //this.newGame.platform = this.platforms[0];
     }
     
@@ -210,12 +239,14 @@ export class UserEditComponent {
       
       this.newGame.modifica = true;
       this.newGame.explode = false;
+      this.newGame.selectedGame = { ...this.selectedGame};
       if(this.person.gamesThisYear){
         this.person.gamesThisYear.push(this.newGame);
       } else {
         this.person.gamesThisYear = [];
         this.person.gamesThisYear.push(this.newGame);
       }
+      this.selectedGame = null;
     }
 
     saveProfile(){
@@ -282,18 +313,41 @@ export class UserEditComponent {
       setTimeout(() => this.createModal = false, 760);
     }
 
+    onClearNew(){
+      this.selectedGame = null;
+      if(this.newGame){
+        this.newGame.name = null;
+        this.newGame.id = null;
+        this.newGame.logo = null;
+      }
+    }
+
+    onClear(game){
+      game.selectedGame = null;
+      game.name = null;
+      game.id = null;
+      game.logo = null;
+    }
+
     onSelectionNew(event){
       if(!this.newGame){
         this.newGame = {};
       }
-      this.newGame.name = event.query;
+      this.newGame.name = event.name;
+      this.newGame.logo = event.background_image;
+      this.newGame.idGame = event.id;
     }
+
+    
 
     onSelection(event, game){
       if(!game){
         game = {};
       }
-      game = event.query;
+      game.name = event.name;
+      game.idGame = event.id;
+      game.logo = event.background_image;
+      
     }
 
     

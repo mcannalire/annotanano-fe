@@ -1,0 +1,28 @@
+.gamer-box {
+    width: 100%;
+    border: 2px solid gold;
+  }
+
+.detail-title {
+    padding-top: 35px;
+}
+
+
+.detail-user-grid{
+    display:flex;
+}
+
+.detail-played-by span {
+    font-size:1rem;
+}
+
+.detail-played-by img{
+    widows: 75px;
+    height:50px;
+}
+
+.detail-trailer {
+    padding-top: 15px;
+    width: 100%;
+}
+

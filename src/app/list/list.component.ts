@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { GamesService } from '../services/games.service';
-import { element } from 'protractor';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'annotanano-list',
@@ -86,7 +86,7 @@ export class ListUserComponent{
     height: 500
   };
 
-  constructor(private gamesService: GamesService){
+  constructor(private router: Router,private gamesService: GamesService){
     this.gamesService.getAll().subscribe((data : any) => {
       this.listPerson = data;
 
@@ -138,6 +138,10 @@ export class ListUserComponent{
       
       
     })
+  }
+
+  toGameDetail(game){
+    this.router.navigate(['/game-detail'], {queryParams: {idGame: game.idGame, name: game.name}});
   }
 
   getContainerWidth(){

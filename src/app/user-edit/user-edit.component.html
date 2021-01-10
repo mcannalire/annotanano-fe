@@ -21,16 +21,18 @@
             <p-button label="Aggiungi Gioco" (onClick)="addGame()" *ngIf="!aggiungiGioco"></p-button>
             <div class="row" *ngIf="aggiungiGioco">
                 <div class="col-3 col-xs-3">
-                    <span class="ui-float-label">
+                    <!--<span class="ui-float-label">
                         <input type="text" [(ngModel)]="newGame.name" pInputText>
                         <label for="float-input">Inserisci Nome</label>
-                    </span>
+                    </span>-->
                     
-                    <!--<span class="ui-float-label">
-                        <p-autoComplete inputId="autocomplete" (onSelect)="onSelection($event, newGame)" [(ngModel)]="selectedGame" [suggestions]="results" (completeMethod)="search($event)" [forceSelection]="true" [minLength]="3" [delay]="800" field="name">
+                    <span class="ui-float-label">
+                        <p-autoComplete inputId="autocomplete" (onSelect)="onSelectionNew($event)" [(ngModel)]="selectedGame" [suggestions]="results" (completeMethod)="search($event)" 
+                        [forceSelection]="true" [minLength]="3" [delay]="800" field="name" (onClear)="onClearNew()">
                         </p-autoComplete>
                         <label for="autocomplete">Inserisci Nome</label>
-                    </span>-->
+                    </span>
+                    
                         
                        
                 </div>
@@ -102,8 +104,9 @@
 
                 <div class="col-12 col-xs-12">
                     <p-button label="Aggiungi" (onClick)="saveGame()" *ngIf="aggiungiGioco" [disabled]="!newGame.name || newGame.name.length === 0"></p-button>
+                    
                 </div>
-                
+                <div class="col-12" *ngIf="!selectedGame"><span >Seleziona un gioco dai suggerimenti nell'inserimento nome per poterlo aggiungere</span></div>
             </div>
         </div>
         <div class="col-12 col-xs-12 grid-edit" *ngIf="!person.gamesThisYear">
@@ -128,9 +131,15 @@
                         <img class="comment-img" (click)="showCommentDialog(game, i)" src="assets/img/comment.png" *ngIf="game.comment" pTooltip="{{'Modifica commento per ' + game.name}}" tooltipPosition="top">
                     </div>
                     <div class="col-5 col-xs-6" *ngIf="!game.modifica">
-                        <span class="ui-float-label">
+                        <!--<span class="ui-float-label">
                             <input type="text" [(ngModel)]="game.name" pInputText>
                             <label for="float-input">Inserisci Nome</label>
+                        </span>-->
+                        <span class="ui-float-label">
+                            <p-autoComplete inputId="autocomplete" (onSelect)="onSelection($event, game)" [(ngModel)]="game.selectedGame" [suggestions]="results" (completeMethod)="search($event)" 
+                            [forceSelection]="true" [minLength]="3" [delay]="800" field="name" (onClear)="onClear(game)">
+                            </p-autoComplete>
+                            <label for="autocomplete">Inserisci Nome</label>
                         </span>
                     </div>
                     <!--<div class="col-2 grid-cell-status">{{game.status === 0 ? 'In corso' : 'Completato'}}</div>-->
@@ -150,7 +159,7 @@
                         </p-button>
                     </div>
                     <div class="col-1 col-xs-1" *ngIf="!game.modifica" style="padding-top: 13px;">
-                        <p-button styleClass="ui-button-info" icon="faPencilAlt" (onClick)="annullaModificaGioco(game)" *ngIf="!game.modifica">
+                        <p-button styleClass="ui-button-info" icon="faPencilAlt" (onClick)="annullaModificaGioco(game)" *ngIf="!game.modifica" [disabled]="!game.selectedGame">
                             <fa-icon [icon]="faCheck"></fa-icon>
                         </p-button>
                     </div>
