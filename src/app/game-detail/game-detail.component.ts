@@ -16,13 +16,23 @@ export class GameDetailComponent {
   isClip;
   trustedUrl;
   mediaAnnotanano;
+  totalHours;
+  gameName;
+  similarGames;
   constructor(private gamesService: GamesService, private route: ActivatedRoute, private sanitizer: DomSanitizer){
     this.mediaAnnotanano = 0;
+    this.totalHours = 0;
     this.route.queryParams.pipe(
-      flatMap((params) => {
+      flatMap((params) =>{
         this.idGame = params['idGame'];
-        const gameName = params['name'];
-        return this.gamesService.getResults(gameName);
+        this.gameName = params['name'];
+        return this.gamesService.getSimilarResult(this.idGame);
+      }),
+      flatMap((data) => {
+        if(data && data['results'] && data['results'].length > 0){
+          this.similarGames = data['results'];
+        }
+        return this.gamesService.getResults(this.gameName);
       }),
       flatMap((data) => {
         if(data && data['results'] && data['results'].length > 0){
@@ -43,6 +53,7 @@ export class GameDetailComponent {
               if(element.idGame == this.idGame){
                 this.listPerson.push(person);
                 this.mediaAnnotanano += element.rating;
+                this.totalHours += element.hours;
               }
             });
           }

@@ -5,7 +5,7 @@
                 <img width="200px" height="100px" src="{{gameDetail.background_image}}">
             </div>
             <div class="col-9 detail-title">
-                <span>{{gameDetail.name}}</span>
+                <span style="font-weight: bolder;">{{gameDetail.name}}</span>
             </div>
         </div>
         
@@ -30,6 +30,11 @@
                     <span style="font-size: 1.4rem;
                     font-weight: bolder;">{{mediaAnnotanano}}</span>
                 </div>
+                <div class="col-12" *ngIf="totalHours">
+                    <span>Ore totali Annotanano: </span>
+                    <span style="font-size: 1.4rem;
+                    font-weight: bolder;">{{totalHours}}</span>
+                </div>
             </div>
             <div *ngIf="isClip" class="col-9" style="text-align: right;">
                 <video [muted]="'muted'" autoplay id="video1"  class="img" controls>
@@ -38,5 +43,23 @@
                 </video>
             </div>
         </div>
+
+        <div class="col-12 row" style="padding-top:15px;padding-bottom:15px;">
+            <div class="col-12">
+                <span style="font-size: larger;font-weight: bolder;">Se ti piace {{gameDetail.name}}, potresti apprezzare anche:</span>
+            </div>
+            <div class="col-12 row">
+               
+                <div class="col-3 suggested" *ngFor="let similar of similarGames">
+                    <span style="white-space: nowrap;">{{similar.name}}</span>
+                    <img width="200px" height="100px" src="{{similar.background_image}}" pTooltip="{{similar.name}}">
+                    <div>
+                        <span>Metacritic: </span>
+                        <span>{{similar.metacritic ? similar.metacritic : 'N/A' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>

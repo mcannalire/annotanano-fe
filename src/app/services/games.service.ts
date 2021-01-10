@@ -55,4 +55,9 @@ export class GamesService {
         });
     }
 
+    getSimilarResult(query){
+        return this.http.get('https://api.rawg.io/api/games/'+encodeURIComponent(query)+'/suggested', {
+            headers: {'accept': 'application/json'}
+        });
+    }
 }
