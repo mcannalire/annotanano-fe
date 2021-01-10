@@ -52,7 +52,7 @@
                
                 <div class="col-3 suggested" *ngFor="let similar of similarGames">
                     <span style="white-space: nowrap;">{{similar.name}}</span>
-                    <img width="200px" height="100px" src="{{similar.background_image}}" pTooltip="{{similar.name}}">
+                    <img (click)="toGameDetail(similar)" style="cursor: pointer;" width="200px" height="100px" src="{{similar.background_image}}" pTooltip="{{similar.name}}">
                     <div>
                         <span>Metacritic: </span>
                         <span>{{similar.metacritic ? similar.metacritic : 'N/A' }}</span>
