@@ -157,7 +157,16 @@ export class UserEditComponent {
     }
 
     modificaGioco(game){
-      game.modifica = false;
+      this.gameService.getResults(game.name).subscribe((data) => {
+        if(data && data['results'] && data['results'].length > 0){
+          data['results'].forEach(element => {
+            if(game.idGame == element.id){
+              game.selectedGame = element;
+              game.modifica = false;
+            }
+          });
+        }
+      });
     }
 
     annullaModificaGioco(game){
