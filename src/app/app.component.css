@@ -7,10 +7,39 @@
     z-index: 20
 }
 
+.background-annotanano {
+    background-repeat: repeat-y;
+    background-size: contain;
+}
+
 .annotanano-logo-class {
     position:fixed;
     top: 24%;
     padding-left: 10px;
+}
+
+.user-settings-class {
+    position: fixed;
+    top: 30%;
+    right: 0;
+    background-color: dimgray;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    padding-left: 5px;
+    padding-right: 10px;
+}
+
+.user-settings-class :hover {
+    position: fixed;
+    top: 30%;
+    right: 0;
+    font-size: 40px;
+    color: goldenrod;
+    background-color: honeydew;
+    cursor: pointer;
+    padding-left: 5px;
+    padding-right: 10px;
 }
 
 .footer-class {

@@ -33,7 +33,7 @@
             <div class="col-4 avatar-box">
                 <img class="blood-img" *ngIf="youBlood" src="assets/img/blood.gif">
                 <img class="avatar-img" *ngIf="you.avatarUrl" [ngStyle]="{'filter': youBlood ? 'grayscale(100%)' : ''}"  src="{{you.avatarUrl}}">
-                <img class="avatar-img" *ngIf="!you.avatarUrl" []="{'filter': youBlood ? 'grayscale(100%)' : ''}"  src="assets/img/derp.jpg">
+                <img class="avatar-img" *ngIf="!you.avatarUrl" [ngStyle]="{'filter': youBlood ? 'grayscale(100%)' : ''}"  src="assets/img/derp.jpg">
             </div>
             <div class="col-1">
                 <img class="vs-img" src="assets/img/vs.png"> 

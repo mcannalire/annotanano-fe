@@ -23,6 +23,9 @@ export class LoginComponent {
         this.authService.login(this.username, this.pwd).subscribe((data) => {
           if(data.userId !== 'NA'){
             sessionStorage.setItem('userId', data.userId);
+            if(data.backgroundUrl){
+              sessionStorage.setItem('urlWallpaper', data.backgroundUrl);
+            }
             if(this.rememberMe){
               this.cookieService.set('userId', sessionStorage.getItem('userId'), 365);
             }

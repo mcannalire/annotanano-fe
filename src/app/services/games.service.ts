@@ -60,4 +60,10 @@ export class GamesService {
             headers: {'accept': 'application/json'}
         });
     }
+
+    putSettings(body){
+        return this.http.post('https://annotanano-spring.herokuapp.com/api/putUserSettings', body, {
+            headers: {'accept': 'application/json'}
+        });
+    }
 }

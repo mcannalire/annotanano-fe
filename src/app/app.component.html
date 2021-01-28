@@ -1,98 +1,105 @@
 
-<div *ngIf="notLogin()" class="annotanano-logo-class">
-    <div style="padding-left: 5px;">
-        <img style="width:128px;height:41px;" src="assets/img/annotanano_logo.png">
-    </div>
-    <div class="side-menu">
-        <div>
-            <a (click)="sessionClicked('game')" (mouseenter)="mSelectorGame = true" (mouseleave)="mSelectorGame = false">Giochi</a>
-            <div class="border-img" *ngIf="mSelectorGame" style="top:24%; left:128px;z-index: 9;padding-top: 41px;">
-                <img src="assets/img/ms.gif" style="width: 90px">
-            </div>
+<div class="background-annotanano" [ngStyle]="{'background-image': getUrlBackGroundImg() ? 'url(' + getUrlBackGroundImg() + ')' : ''}">
+    <div *ngIf="notLogin()" class="annotanano-logo-class">
+        <div style="padding-left: 5px;">
+            <img style="width:128px;height:41px;" src="assets/img/annotanano_logo.png">
         </div>
-        <div>
-            <a (click)="sessionClicked('movie')" (mouseenter)="mSelectorMovie = true" (mouseleave)="mSelectorMovie = false">Film</a>
-            <div class="border-img" *ngIf="mSelectorMovie"  style="top:24%; left:128px;z-index: 9;padding-top: 77px;">
-                <img src="assets/img/ms.gif" style="width: 90px">
-            </div>
-        </div>
-        <div>
-            <a (click)="sessionClicked('series')" (mouseenter)="mSelectorSeries = true" (mouseleave)="mSelectorSeries = false">Serie TV</a>
-            <div class="border-img" *ngIf="mSelectorSeries" style="top:24%; left:128px;z-index: 9;padding-top: 113px;">
-                <img src="assets/img/ms.gif" style="width: 90px" >
-            </div>
-        </div>
-        <div>
-            <a (click)="showModal()" (mouseenter)="mSelectorKnowHow = true" (mouseleave)="mSelectorKnowHow = false">Devi Sapere</a>
-            <div class="border-img" *ngIf="mSelectorKnowHow" style="top:24%; left:128px;z-index: 9;padding-top: 149px;">
-                <img src="assets/img/ms.gif" style="width: 90px" >
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container header-class" *ngIf="notLogin() && mode === 'game'">
-    <div class="row" style="height: inherit;">
-        <div (click)="edit()" class="col-3 voice-class">
-            <div>Modifica Utente</div>
-        </div>
-        <div (click)="list()" class="col-3 voice-class">
-            <div>Lista Giocatori</div>
-        </div>
-        <div (click)="compare()" class="col-3 voice-class">
-            <div>Confronta Giocatori</div>
-        </div>
-        <div (click)="goldBook()" class="col-3 voice-class">
-            <div>Storico</div>
-        </div>
-    </div>
-</div> 
-
-<div class="container header-class" *ngIf="notLogin() && mode === 'movie'">
-    <div class="row" style="height: inherit;">
-        <div (click)="editMovie()" class="col-6 voice-class">
-            <div>Modifica Lista Film</div>
-        </div>
-        <div (click)="listMovie()" class="col-6 voice-class">
-            <div>Lista Film</div>
-        </div>
-        <!--<div (click)="goldBookMovie()" class="col-4 voice-class">
-            <div>Storico</div>
-        </div>-->
-    </div>
-</div> 
-
-<div class="container header-class" *ngIf="notLogin() && mode === 'series'">
-    <div class="row" style="height: inherit;">
-        <div (click)="editSeries()" class="col-6 voice-class">
-            <div>Modifica Lista Serie TV</div>
-        </div>
-        <div (click)="listSeries()" class="col-6 voice-class">
-            <div>Lista Serie TV</div>
-        </div>
-        <!--<div (click)="goldBookSeries()" class="col-4 voice-class">
-            <div>Storico</div>
-        </div>-->
-    </div>
-</div> 
-<annotanano-loader></annotanano-loader>
-
-<router-outlet></router-outlet>
-
-<div class="container footer-class">
-    <div class="row" style="height: inherit;">
-        <div class="col-3">
-            <img class="img-footer" src="assets/img/an_logo.gif">
-        </div>
-       <div class="col-9 annotanano-logo">
+        <div class="side-menu">
             <div>
-                <span>ANNOTANANO {{thisYear}}</span>
+                <a (click)="sessionClicked('game')" (mouseenter)="mSelectorGame = true" (mouseleave)="mSelectorGame = false">Giochi</a>
+                <div class="border-img" *ngIf="mSelectorGame" style="top:24%; left:128px;z-index: 9;padding-top: 41px;">
+                    <img src="assets/img/ms.gif" style="width: 90px">
+                </div>
             </div>
-       </div>
+            <div>
+                <a (click)="sessionClicked('movie')" (mouseenter)="mSelectorMovie = true" (mouseleave)="mSelectorMovie = false">Film</a>
+                <div class="border-img" *ngIf="mSelectorMovie"  style="top:24%; left:128px;z-index: 9;padding-top: 77px;">
+                    <img src="assets/img/ms.gif" style="width: 90px">
+                </div>
+            </div>
+            <div>
+                <a (click)="sessionClicked('series')" (mouseenter)="mSelectorSeries = true" (mouseleave)="mSelectorSeries = false">Serie TV</a>
+                <div class="border-img" *ngIf="mSelectorSeries" style="top:24%; left:128px;z-index: 9;padding-top: 113px;">
+                    <img src="assets/img/ms.gif" style="width: 90px" >
+                </div>
+            </div>
+            <div>
+                <a (click)="showModal()" (mouseenter)="mSelectorKnowHow = true" (mouseleave)="mSelectorKnowHow = false">Devi Sapere</a>
+                <div class="border-img" *ngIf="mSelectorKnowHow" style="top:24%; left:128px;z-index: 9;padding-top: 149px;">
+                    <img src="assets/img/ms.gif" style="width: 90px" >
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div *ngIf="notLogin()" class="user-settings-class">
+        <div class="inner-gear" icon="faCogs" pTooltip="Impostazioni" tooltipPosition="left" (click)="showSettingsModal()">
+            <fa-icon [icon]="faCogs"></fa-icon>
+        </div>
+    </div>
+
+    <div class="container header-class" *ngIf="notLogin() && mode === 'game'">
+        <div class="row" style="height: inherit;">
+            <div (click)="edit()" class="col-3 voice-class">
+                <div>Modifica Utente</div>
+            </div>
+            <div (click)="list()" class="col-3 voice-class">
+                <div>Lista Giocatori</div>
+            </div>
+            <div (click)="compare()" class="col-3 voice-class">
+                <div>Confronta Giocatori</div>
+            </div>
+            <div (click)="goldBook()" class="col-3 voice-class">
+                <div>Storico</div>
+            </div>
+        </div>
+    </div> 
+
+    <div class="container header-class" *ngIf="notLogin() && mode === 'movie'">
+        <div class="row" style="height: inherit;">
+            <div (click)="editMovie()" class="col-6 voice-class">
+                <div>Modifica Lista Film</div>
+            </div>
+            <div (click)="listMovie()" class="col-6 voice-class">
+                <div>Lista Film</div>
+            </div>
+            <!--<div (click)="goldBookMovie()" class="col-4 voice-class">
+                <div>Storico</div>
+            </div>-->
+        </div>
+    </div> 
+
+    <div class="container header-class" *ngIf="notLogin() && mode === 'series'">
+        <div class="row" style="height: inherit;">
+            <div (click)="editSeries()" class="col-6 voice-class">
+                <div>Modifica Lista Serie TV</div>
+            </div>
+            <div (click)="listSeries()" class="col-6 voice-class">
+                <div>Lista Serie TV</div>
+            </div>
+            <!--<div (click)="goldBookSeries()" class="col-4 voice-class">
+                <div>Storico</div>
+            </div>-->
+        </div>
+    </div> 
+    <annotanano-loader></annotanano-loader>
+
+    <router-outlet></router-outlet>
+
+    <div class="container footer-class">
+        <div class="row" style="height: inherit;">
+            <div class="col-3">
+                <img class="img-footer" src="assets/img/an_logo.gif">
+            </div>
+        <div class="col-9 annotanano-logo">
+                <div>
+                    <span>ANNOTANANO {{thisYear}}</span>
+                </div>
+        </div>
+        </div>
+    </div>
+
 </div>
-
-
 
 <p-dialog header="Devi Sapere" [(visible)]="modalDisplay" [modal]="true">
     <div class="container">
@@ -109,6 +116,29 @@
                 <li>L'annotanano in principio doveva interfacciarsi con le varie piattaforme di gioco, ma solo STEAM ha le API esposte, gli altri stanno negli anni 90 ancora. Questo per verificare che quello che state segnando qui corrisponda a verità, purtroppo bisogna ancora basarsi sulla fiducia.</li>
               </ul>
             </div>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog header="Impostazioni Annotanano" [(visible)]="impostazioniDisplay" [modal]="true">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 grid-modal" style="text-align: center;">
+                <img class="img-modal" *ngIf="urlWallpaper && urlWallpaper.length !== 0" src="{{urlWallpaper}}">
+                <img class="img-modal" *ngIf="!urlWallpaper || urlWallpaper.length === 0" src="assets/img/no_game_img.png">
+            </div>
+            <div class="col-12 grid-modal">
+                <span>Inserisci l'url per il tuo wallpaper personalizzato</span>
+                <span class="ui-float-label" style="margin-top: 25px">
+                    <input style="width: 100%;" type="text" [(ngModel)]="urlWallpaper" pInputText>
+                    <label for="float-input">URL Annotanano wallpaper</label>
+                </span>
+            </div>
+            
+            <div class="col-12 col-xs-12" style="margin-top: 10px; text-align:right;">
+                <p-button label="Salva Impostazioni" (onClick)="saveSettings()"></p-button>
+            </div>
+            
         </div>
     </div>
 </p-dialog>
