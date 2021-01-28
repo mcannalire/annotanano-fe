@@ -8,8 +8,9 @@
 }
 
 .background-annotanano {
-    background-repeat: repeat-y;
-    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .annotanano-logo-class {
