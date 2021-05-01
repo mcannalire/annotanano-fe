@@ -48,15 +48,14 @@ export class GamesService {
         });
     }
 
-    getResults(query){
-        
-        return this.http.get('https://api.rawg.io/api/games?search='+encodeURIComponent(query), {
+    getResults(query){   
+        return this.http.get('https://api.rawg.io/api/games?key=' + encodeURIComponent('c836bdf123df44879c1d75e1a267112a') + '&search='+encodeURIComponent(query), {
             headers: {'accept': 'application/json'}
         });
     }
 
     getSimilarResult(query){
-        return this.http.get('https://api.rawg.io/api/games/'+encodeURIComponent(query)+'/suggested', {
+        return this.http.get('https://api.rawg.io/api/games/'+encodeURIComponent(query)+'/suggested?key=' + encodeURIComponent('c836bdf123df44879c1d75e1a267112a'), {
             headers: {'accept': 'application/json'}
         });
     }

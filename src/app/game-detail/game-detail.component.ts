@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
-import { flatMap } from 'rxjs/operators';
+import { flatMap, tap } from 'rxjs/operators';
 import { GamesService } from '../services/games.service';
 
 @Component({
@@ -24,15 +24,20 @@ export class GameDetailComponent {
     this.mediaAnnotanano = 0;
     this.totalHours = 0;
     this.route.queryParams.pipe(
-      flatMap((params) =>{
+      //remove tap if resolve 401 suggested game 
+      tap((params) => {
+        this.idGame = params['idGame'];
+        this.gameName = params['name'];
+      }),
+      /*flatMap((params) =>{
         this.idGame = params['idGame'];
         this.gameName = params['name'];
         return this.gamesService.getSimilarResult(this.idGame);
-      }),
+      }),*/
       flatMap((data) => {
-        if(data && data['results'] && data['results'].length > 0){
+        /*if(data && data['results'] && data['results'].length > 0){
           this.similarGames = data['results'];
-        }
+        }*/
         return this.gamesService.getResults(this.gameName);
       }),
       flatMap((data) => {
