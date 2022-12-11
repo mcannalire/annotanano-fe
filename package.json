@@ -34,7 +34,7 @@
     "angular-google-charts": "^0.1.6",
     "bootstrap": "4.1.1",
     "core-js": "^2.5.4",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "font-awesome": "^4.7.0",
     "ngx-cookie-service": "^2.3.0",
     "ngx-order-pipe": "^1.1.3",
